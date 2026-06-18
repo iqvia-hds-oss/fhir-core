@@ -254,6 +254,7 @@
 							!org.apache.http.*,
 							!org.apache.jena.*,
 							!org.apache.poi.*,
+							!org.checkerframework.*,
 							!org.codehaus.stax2.*,
 							!org.commonmark.*,
 							!org.hl7.fhir.dstu2016may.*,
