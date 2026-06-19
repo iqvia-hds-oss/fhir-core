@@ -159,6 +159,8 @@ public class OperationConvertor_40_50 {
 	public static com.b2international.fhir.r4.operations.CodeSystemValidateCodeResultParameters convert(com.b2international.fhir.r5.operations.CodeSystemValidateCodeResultParameters parameters) {
 		return new com.b2international.fhir.r4.operations.CodeSystemValidateCodeResultParameters()
 			.setResult(convertType(parameters.getResult()))
+			.setSystem(convertType(parameters.getSytem()))
+			.setVersion(convertType(parameters.getVersion()))
 			.setMessage(convertType(parameters.getMessage()))
 			.setDisplay(convertType(parameters.getDisplay()))
 		;
