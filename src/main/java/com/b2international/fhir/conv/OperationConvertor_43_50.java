@@ -158,6 +158,8 @@ public class OperationConvertor_43_50 {
 	public static com.b2international.fhir.r4b.operations.CodeSystemValidateCodeResultParameters convert(com.b2international.fhir.r5.operations.CodeSystemValidateCodeResultParameters parameters) {
 		return new com.b2international.fhir.r4b.operations.CodeSystemValidateCodeResultParameters()
 			.setResult(parameters.getResult() == null ? null : parameters.getResult().getValue())
+			.setSystem(convertType(parameters.getSytem()))
+			.setVersion(convertType(parameters.getVersion()))
 			.setMessage(parameters.getMessage() == null ? null : parameters.getMessage().getValue())
 			.setDisplay(parameters.getDisplay() == null ? null : parameters.getDisplay().getValue())
 		;
