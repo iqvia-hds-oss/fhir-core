@@ -95,10 +95,10 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 	}
 	
 	public ValueSetValidateCodeResultParameters setSystem(String system) {
-		return setSysytem(new UriType(system));
+		return setSystem(new UriType(system));
 	}
 
-	public ValueSetValidateCodeResultParameters setSysytem(UriType uriType) {
+	public ValueSetValidateCodeResultParameters setSystem(UriType uriType) {
 		addParameter("system", uriType);
 		return this;
 	}
