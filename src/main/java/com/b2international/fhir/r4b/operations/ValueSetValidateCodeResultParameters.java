@@ -15,7 +15,10 @@
  */
 package com.b2international.fhir.r4b.operations;
 
-import org.hl7.fhir.r4b.model.*;
+import org.hl7.fhir.r4b.model.BooleanType;
+import org.hl7.fhir.r4b.model.Parameters;
+import org.hl7.fhir.r4b.model.StringType;
+import org.hl7.fhir.r4b.model.UriType;
 
 /**
  * @since 0.1
@@ -34,6 +37,14 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 		return getParameterValue("result", Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 	
+	public UriType getSystem() {
+		return (UriType) getParameterValue("system", Parameters.ParametersParameterComponent::getValue);
+	}
+
+	public StringType getVersion() {
+		return (StringType) getParameterValue("version", Parameters.ParametersParameterComponent::getValue);
+	}
+	
 	public StringType getMessage() {
 		return getParameterValue("message", Parameters.ParametersParameterComponent::getValueStringType);
 	}
@@ -48,6 +59,24 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 	
 	public ValueSetValidateCodeResultParameters setResult(BooleanType isResult) {
 		addParameter("result", isResult);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setSystem(String system) {
+		return system == null ? this : setSystem(new UriType(system));
+	}
+
+	public ValueSetValidateCodeResultParameters setSystem(UriType system) {
+		addParameter("system", system);
+		return this;
+	}
+
+	public ValueSetValidateCodeResultParameters setVersion(String version) {
+		return version == null ? this : setVersion(new StringType(version));
+	}
+
+	public ValueSetValidateCodeResultParameters setVersion(StringType version) {
+		addParameter("version", version);
 		return this;
 	}
 	

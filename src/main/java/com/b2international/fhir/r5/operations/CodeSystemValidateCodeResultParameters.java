@@ -46,7 +46,7 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 		return getParameterValue("code", Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
-	public UriType getSytem() {
+	public UriType getSystem() {
 		return getParameterValue("system", Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
@@ -101,10 +101,10 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 	}
 	
 	public CodeSystemValidateCodeResultParameters setSystem(String system) {
-		return setSysytem(new UriType(system));
+		return setSystem(new UriType(system));
 	}
 
-	public CodeSystemValidateCodeResultParameters setSysytem(UriType uriType) {
+	public CodeSystemValidateCodeResultParameters setSystem(UriType uriType) {
 		addParameter("system", uriType);
 		return this;
 	}
