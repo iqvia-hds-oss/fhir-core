@@ -159,7 +159,7 @@ public class OperationConvertor_40_50 {
 	public static com.b2international.fhir.r4.operations.CodeSystemValidateCodeResultParameters convert(com.b2international.fhir.r5.operations.CodeSystemValidateCodeResultParameters parameters) {
 		return new com.b2international.fhir.r4.operations.CodeSystemValidateCodeResultParameters()
 			.setResult(convertType(parameters.getResult()))
-			.setSystem(convertType(parameters.getSytem()))
+			.setSystem(convertType(parameters.getSystem()))
 			.setVersion(convertType(parameters.getVersion()))
 			.setMessage(convertType(parameters.getMessage()))
 			.setDisplay(convertType(parameters.getDisplay()))
@@ -296,6 +296,8 @@ public class OperationConvertor_40_50 {
 	public static com.b2international.fhir.r4.operations.ValueSetValidateCodeResultParameters convert(com.b2international.fhir.r5.operations.ValueSetValidateCodeResultParameters parameters) {
 		return new com.b2international.fhir.r4.operations.ValueSetValidateCodeResultParameters()
 			.setResult(convertType(parameters.getResult()))
+			.setSystem(convertType(parameters.getSystem()))
+			.setVersion(convertType(parameters.getVersion()))
 			.setMessage(convertType(parameters.getMessage()))
 			.setDisplay(convertType(parameters.getDisplay()))
 		;
@@ -427,6 +429,8 @@ public class OperationConvertor_40_50 {
 	public static com.b2international.fhir.r5.operations.CodeSystemValidateCodeResultParameters convert(com.b2international.fhir.r4.operations.CodeSystemValidateCodeResultParameters parameters) {
 		return new com.b2international.fhir.r5.operations.CodeSystemValidateCodeResultParameters()
 			.setResult(convertType(parameters.getResult()))
+			.setSystem(convertType(parameters.getSystem()))
+			.setVersion(convertType(parameters.getVersion()))
 			.setMessage(convertType(parameters.getMessage()))
 			.setDisplay(convertType(parameters.getDisplay()))
 		;

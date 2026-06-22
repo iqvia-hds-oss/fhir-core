@@ -46,7 +46,7 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 		return getParameterValue("code", Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
-	public UriType getSytem() {
+	public UriType getSystem() {
 		return getParameterValue("system", Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
