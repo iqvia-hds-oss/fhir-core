@@ -560,6 +560,8 @@ public class OperationConvertor_43_50 {
 	public static com.b2international.fhir.r5.operations.ValueSetValidateCodeResultParameters convert(com.b2international.fhir.r4b.operations.ValueSetValidateCodeResultParameters parameters) {
 		return new com.b2international.fhir.r5.operations.ValueSetValidateCodeResultParameters()
 			.setResult(convertType(parameters.getResult()))
+			.setSystem(convertType(parameters.getSystem()))
+			.setVersion(convertType(parameters.getVersion()))
 			.setMessage(convertType(parameters.getMessage()))
 			.setDisplay(convertType(parameters.getDisplay()))
 		;
