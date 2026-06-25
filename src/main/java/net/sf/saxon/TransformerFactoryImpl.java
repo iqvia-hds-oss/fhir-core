@@ -19,8 +19,9 @@ import javax.xml.transform.*;
 
 /**
  * Compatibility shim to avoid a NoClassDefFoundError when Saxon can not be found 
- * on the classpath. FQDN of this class must match the original but its contents
- * are not related to the upstream Saxon implementation in any way.
+ * on the classpath. The fully qualified class name must match the original for this to
+ * work, but the contents of this class are not related to the upstream Saxon 
+ * implementation in any way.
  * 
  * @since 0.7
  */
