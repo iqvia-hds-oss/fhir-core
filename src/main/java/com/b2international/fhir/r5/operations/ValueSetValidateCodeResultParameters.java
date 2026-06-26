@@ -57,6 +57,10 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 	public CodeableConcept getCodeableConcept() {
 		return getParameterValue("codeableConcept", Parameters.ParametersParameterComponent::getValueCodeableConcept);
 	}
+	
+	public OperationOutcome getIssues() {
+		return (OperationOutcome) getParameterValue("issues", Parameters.ParametersParameterComponent::getResource);
+	}
 
 	public ValueSetValidateCodeResultParameters setResult(Boolean result) {
 		return setResult(new BooleanType(result));
@@ -116,5 +120,9 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 		addParameter("codeableConcept", codeableConcept);
 		return this;
 	}
-	// TODO add issues
+	
+	public ValueSetValidateCodeResultParameters setIssues(OperationOutcome issues) {
+		addParameter("issues", issues);
+		return this;
+	}
 }

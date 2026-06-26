@@ -58,11 +58,9 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 		return getParameterValue("codeableConcept", Parameters.ParametersParameterComponent::getValueCodeableConcept);
 	}
 	
-	// TODO: revise issues parameter
-//	public OperationOutcome getIssues() {
-//		OperationOutcome operationOutcome = new OperationOutcome();
-//		getParameter("issues");
-//	}
+	public OperationOutcome getIssues() {
+		return (OperationOutcome) getParameterValue("issues", Parameters.ParametersParameterComponent::getResource);
+	}
 	
 	public CodeSystemValidateCodeResultParameters setResult(Boolean isResult) {
 		return isResult == null ? this : setResult(new BooleanType(isResult));
@@ -123,51 +121,8 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 		return this;
 	}
 	
-	// TODO: revise issues parameter
-//	public CodeSystemValidateCodeResultParameters setIssues(OperationOutcome issues) {
-//		if (issues == null) {
-//			return this;
-//		}
-//		
-//		List<OperationOutcomeIssueComponent> issue = issues.getIssue();
-//		
-//		List<ParametersParameterComponent> issueList = issue.stream()
-//			.map(iss -> {
-//				var issueParameter = new Parameters.ParametersParameterComponent().setName("issue");
-//				
-//				issueParameter.addPart(new Parameters.ParametersParameterComponent()
-//						.setName("severity")
-//						.setValue(new CodeType(iss.getSeverity().toString())));
-//				
-//				issueParameter.addPart(new Parameters.ParametersParameterComponent()
-//						.setName("code")
-//						.setValue(new CodeType(iss.getCode().toString())));
-//				
-//				issueParameter.addPart(new Parameters.ParametersParameterComponent()
-//						.setName("details")
-//						.setValue(iss.getDetails()));
-//				
-//				issueParameter.addPart(new Parameters.ParametersParameterComponent()
-//						.setName("diagnostics")
-//						.setValue(new StringType(iss.getDiagnostics())));
-//				
-//				iss.getLocation().stream().forEach(location -> issueParameter.addPart(
-//						new Parameters.ParametersParameterComponent()
-//							.setName("location")
-//							.setValue(location)
-//				));
-//				
-//				iss.getLocation().stream().forEach(expression -> issueParameter.addPart(
-//						new Parameters.ParametersParameterComponent()
-//							.setName("expression")
-//							.setValue(expression)
-//				));
-//				
-//				return issueParameter;
-//			})
-//			.collect(Collectors.toList());
-//		
-//		getParameters().addParameter(new ParametersParameterComponent("issues").setPart(issueList));
-//		return this;
-//	}
+	public CodeSystemValidateCodeResultParameters setIssues(OperationOutcome issues) {
+		addParameter("issues", issues);
+		return this;
+	}
 }
