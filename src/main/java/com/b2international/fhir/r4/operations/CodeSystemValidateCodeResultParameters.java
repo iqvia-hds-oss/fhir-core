@@ -15,10 +15,7 @@
  */
 package com.b2international.fhir.r4.operations;
 
-import org.hl7.fhir.r4.model.BooleanType;
-import org.hl7.fhir.r4.model.Parameters;
-import org.hl7.fhir.r4.model.StringType;
-import org.hl7.fhir.r4.model.UriType;
+import org.hl7.fhir.r4.model.*;
 
 /**
  * @since 0.1
@@ -51,6 +48,10 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 	
 	public StringType getDisplay() {
 		return (StringType) getParameterValue("display", Parameters.ParametersParameterComponent::getValue);
+	}
+	
+	public OperationOutcome getIssues() {
+		return (OperationOutcome) getParameterValue("issues", Parameters.ParametersParameterComponent::getResource);
 	}
 	
 	public CodeSystemValidateCodeResultParameters setResult(Boolean isResult) {
@@ -95,6 +96,11 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 	
 	public CodeSystemValidateCodeResultParameters setDisplay(StringType display) {
 		addParameter("display", display);
+		return this;
+	}
+	
+	public CodeSystemValidateCodeResultParameters setIssues(OperationOutcome issues) {
+		addParameter("issues", issues);
 		return this;
 	}
 }
