@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 import org.hl7.fhir.exceptions.FHIRFormatError;
 import org.hl7.fhir.r5.model.DataType;
 import org.hl7.fhir.r5.model.Parameters;
+import org.hl7.fhir.r5.model.Resource;
 
 import com.google.common.collect.ImmutableSortedSet;
 
@@ -68,6 +69,17 @@ public abstract class BaseParameters {
 		}
 		
 		getParameters().addParameter(name, value);
+	}
+	
+	protected final void addParameter(String name, Resource resource) {
+		// prevent adding parameters without name and/or resource
+		if (name == null || resource == null) {
+			return;
+		}
+		
+		getParameters().addParameter()
+			.setName(name)
+			.setResource(resource);
 	}
 
 	@Override

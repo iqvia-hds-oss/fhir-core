@@ -20,10 +20,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.hl7.fhir.r5.formats.JsonParser;
-import org.hl7.fhir.r5.model.CodeableConcept;
-import org.hl7.fhir.r5.model.Coding;
-import org.hl7.fhir.r5.model.Parameters;
-import org.hl7.fhir.r5.model.Resource;
+import org.hl7.fhir.r5.model.*;
 import org.junit.Test;
 
 /**
@@ -224,5 +221,66 @@ public class ValueSetValidateCodeResultParametersTest {
 	}
 	
 	
-	//TODO: test case for issues, when implemented
+	@Test
+	public void issues() throws Exception {
+
+		String json = 
+		"""
+		{
+			"resourceType": "Parameters",
+			"parameter": [
+				{
+					"name": "issues",
+					"resource": {
+						"resourceType": "OperationOutcome",
+						"issue": [
+							{
+								"severity": "error",
+								"code": "code-invalid",
+								"details": {
+									"coding": [
+										{
+											"system": "http://hl7.org/fhir/tools/CodeSystem/tx-issue-type",
+											"code": "invalid-code"
+										}
+									],
+									"text": "Unknown code 'testCode' in the ValueSet 'testSystem' version 'testVersion'"
+								},
+								"location": [
+									"CodeableConcept.coding[0].code"
+								],
+								"expression": [
+									"CodeableConcept.coding[0].code"
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+		""";
+		
+		Resource resource = parser.parse(json);
+		
+		OperationOutcome issues = new OperationOutcome();
+
+		issues.addIssue()
+			.setSeverity(OperationOutcome.IssueSeverity.ERROR)
+			.setCode(OperationOutcome.IssueType.CODEINVALID)
+			.setDetails(new CodeableConcept()
+					.setCoding(List.of(
+							new Coding()
+								.setSystem("http://hl7.org/fhir/tools/CodeSystem/tx-issue-type")
+								.setCode("invalid-code")))
+					.setText("Unknown code 'testCode' in the ValueSet 'testSystem' version 'testVersion'"))
+			.setLocation(List.of(new StringType("CodeableConcept.coding[0].code")))
+			.setExpression(List.of(new StringType("CodeableConcept.coding[0].code")));
+
+		ValueSetValidateCodeResultParameters expected = new ValueSetValidateCodeResultParameters()
+				.setIssues(issues);
+		
+		ValueSetValidateCodeResultParameters actual = new ValueSetValidateCodeResultParameters((Parameters) resource);
+		
+		assertEquals(expected, actual);
+	}
 }
