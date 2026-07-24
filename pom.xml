@@ -22,7 +22,7 @@
 		<fhir.ucum.version>1.0.10</fhir.ucum.version>
 		<gson.version>2.13.1</gson.version>
 		<xpp3.version>1.1.4c</xpp3.version>
-		<jackson.version>2.21.1</jackson.version>
+		<jackson.version>2.21.5</jackson.version>
 
 		<slf4j.version>2.0.17</slf4j.version>
 		<guava.version>33.4.0-jre</guava.version>
