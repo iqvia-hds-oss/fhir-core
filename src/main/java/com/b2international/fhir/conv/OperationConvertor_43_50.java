@@ -189,6 +189,7 @@ public class OperationConvertor_43_50 {
 			
 			.setTargetSystem(convertType(parameters.getTargetSystem()))
 			.setDependency(parameters.getDependency() == null ? null : parameters.getDependency().stream().map(OperationConvertor_43_50::convert).toList())
+			.setDisplayLanguage(convertType(parameters.getDisplayLanguage()))
 		;
 	}
 	
@@ -473,7 +474,8 @@ public class OperationConvertor_43_50 {
 				.setTargetSystem(convertType(parameters.getTargetSystem()));
 		}
 		return r5params
-			.setDependency(parameters.getDependency() == null ? null : parameters.getDependency().stream().map(OperationConvertor_43_50::convert).toList());
+			.setDependency(parameters.getDependency() == null ? null : parameters.getDependency().stream().map(OperationConvertor_43_50::convert).toList())
+			.setDisplayLanguage(convertType(parameters.getDisplayLanguage()));
 	}
 	
 	private static com.b2international.fhir.r5.operations.ConceptMapTranslateParameters.Dependency convert (com.b2international.fhir.r4b.operations.ConceptMapTranslateParameters.Dependency r4bdependency) {
