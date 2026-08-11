@@ -42,6 +42,7 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	private static final String PARAM_TARGET_SCOPE = "targetScope";
 	private static final String PARAM_TARGET_SYSTEM = "targetSystem"; // camelCase fixed in R5
 	private static final String PARAM_DEPENDENCY = "dependency";
+	private static final String PARAM_DISPLAY_LANGUAGE = "displayLanguage";  // This parameter does not exist in the specification
 	
 	private static final SortedSet<String> ACCEPTED_PARAMETER_NAMES = ImmutableSortedSet.of(
 		PARAM_URL,
@@ -59,6 +60,7 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 		PARAM_TARGET_SCOPE,
 		PARAM_TARGET_SYSTEM,
 		PARAM_DEPENDENCY,
+		PARAM_DISPLAY_LANGUAGE,
 		String.join(".", PARAM_DEPENDENCY, Dependency.PARAM_ATTRIBUTE),
 		String.join(".", PARAM_DEPENDENCY, Dependency.PARAM_VALUE)
 	);
@@ -129,6 +131,10 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	
 	public List<Dependency> getDependency() {
 		return getParameters(PARAM_DEPENDENCY).stream().map(param -> new Dependency(param.getPart())).toList();
+	}
+	
+	public CodeType getDisplayLanguage() {
+		return getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
 	public ConceptMapTranslateParameters setUrl(String url) {
@@ -248,6 +254,15 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 			.map(dependency -> new Parameters.ParametersParameterComponent().setName(PARAM_DEPENDENCY).setPart(dependency.getPart()))
 			.forEach(getParameters()::addParameter);
 		
+		return this;
+	}
+	
+	public ConceptMapTranslateParameters setDisplayLanguage(String displayLanguage) {
+		return setDisplayLanguage(new CodeType(displayLanguage));
+	}
+	
+	public ConceptMapTranslateParameters setDisplayLanguage(CodeType displayLanguage) {
+		addParameter(PARAM_DISPLAY_LANGUAGE, displayLanguage);
 		return this;
 	}
 	
