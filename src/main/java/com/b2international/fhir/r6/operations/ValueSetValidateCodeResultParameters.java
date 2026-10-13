@@ -1,0 +1,106 @@
+/*
+ * Copyright 2026 B2i Healthcare, https://b2ihealthcare.com
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.b2international.fhir.r6.operations;
+
+import org.hl7.fhir.model.core.*;
+
+/**
+ * @since 1.0
+ */
+public class ValueSetValidateCodeResultParameters extends BaseParameters {
+
+	public ValueSetValidateCodeResultParameters() {
+		this(new Parameters());
+	}
+	
+	public ValueSetValidateCodeResultParameters(Parameters parameters) {
+		super(parameters);
+	}
+	
+	public BooleanType getResult() {
+		return (BooleanType) getParameterValue("result", Parameters.ParametersParameterComponent::getValue);
+	}
+	
+	public UriType getSystem() {
+		return (UriType) getParameterValue("system", Parameters.ParametersParameterComponent::getValue);
+	}
+
+	public StringType getVersion() {
+		return (StringType) getParameterValue("version", Parameters.ParametersParameterComponent::getValue);
+	}
+	
+	public StringType getMessage() {
+		return (StringType) getParameterValue("message", Parameters.ParametersParameterComponent::getValue);
+	}
+	
+	public StringType getDisplay() {
+		return (StringType) getParameterValue("display", Parameters.ParametersParameterComponent::getValue);
+	}
+	
+	public OperationOutcome getIssues() {
+		return (OperationOutcome) getParameterValue("issues", Parameters.ParametersParameterComponent::getResource);
+	}
+	
+	public ValueSetValidateCodeResultParameters setResult(Boolean isResult) {
+		return isResult == null ? this : setResult(new BooleanType(isResult));
+	}
+	
+	public ValueSetValidateCodeResultParameters setResult(BooleanType isResult) {
+		addParameter("result", isResult);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setMessage(String message) {
+		return setMessage(new StringType(message));
+	}
+	
+	public ValueSetValidateCodeResultParameters setSystem(String system) {
+		return system == null ? this : setSystem(new UriType(system));
+	}
+
+	public ValueSetValidateCodeResultParameters setSystem(UriType system) {
+		addParameter("system", system);
+		return this;
+	}
+
+	public ValueSetValidateCodeResultParameters setVersion(String version) {
+		return version == null ? this : setVersion(new StringType(version));
+	}
+
+	public ValueSetValidateCodeResultParameters setVersion(StringType version) {
+		addParameter("version", version);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setMessage(StringType message) {
+		addParameter("message", message);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setDisplay(String display) {
+		return setDisplay(new StringType(display));
+	}
+	
+	public ValueSetValidateCodeResultParameters setDisplay(StringType display) {
+		addParameter("display", display);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setIssues(OperationOutcome issues) {
+		addParameter("issues", issues);
+		return this;
+	}
+}
