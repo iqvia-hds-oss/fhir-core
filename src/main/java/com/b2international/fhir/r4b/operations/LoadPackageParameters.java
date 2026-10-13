@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableSortedSet;
 /**
  * Parameters class for the $load-package operation in the FHIR R4B format.
  * 
- * @since 10.1.0
+ * @since 0.6.0
  */
 public final class LoadPackageParameters extends BaseParameters {
 
