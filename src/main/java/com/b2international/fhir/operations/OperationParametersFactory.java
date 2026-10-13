@@ -50,6 +50,16 @@ public interface OperationParametersFactory {
 		return result;
 	}
 	
+	com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters);
+	
+	default com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters, boolean strict) {
+		var result = create(parameters);
+		if (strict) {
+			result.checkParameters();
+		}
+		return result;
+	}
+	
 	/**
 	 * @since 0.1
 	 */
@@ -70,6 +80,11 @@ public interface OperationParametersFactory {
 		@Override
 		public com.b2international.fhir.r5.operations.BaseParameters create(org.hl7.fhir.r5.model.Parameters parameters) {
 			return new com.b2international.fhir.r5.operations.CodeSystemLookupParameters(parameters);
+		}
+		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.CodeSystemLookupParameters(parameters);
 		}
 		
 	}
@@ -96,6 +111,11 @@ public interface OperationParametersFactory {
 			return new com.b2international.fhir.r5.operations.CodeSystemLookupResultParameters(parameters);
 		}
 		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.CodeSystemLookupResultParameters(parameters);
+		}
+		
 	}
 	
 	/**
@@ -118,6 +138,11 @@ public interface OperationParametersFactory {
 		@Override
 		public com.b2international.fhir.r5.operations.BaseParameters create(org.hl7.fhir.r5.model.Parameters parameters) {
 			return new com.b2international.fhir.r5.operations.CodeSystemSubsumptionParameters(parameters);
+		}
+		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.CodeSystemSubsumptionParameters(parameters);
 		}
 		
 	}
@@ -144,6 +169,11 @@ public interface OperationParametersFactory {
 			return new com.b2international.fhir.r5.operations.CodeSystemSubsumptionResultParameters(parameters);
 		}
 		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.CodeSystemSubsumptionResultParameters(parameters);
+		}
+		
 	}
 	
 	/**
@@ -166,6 +196,11 @@ public interface OperationParametersFactory {
 		@Override
 		public com.b2international.fhir.r5.operations.BaseParameters create(org.hl7.fhir.r5.model.Parameters parameters) {
 			return new com.b2international.fhir.r5.operations.CodeSystemValidateCodeParameters(parameters);
+		}
+		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.CodeSystemValidateCodeParameters(parameters);
 		}
 		
 	}
@@ -192,6 +227,11 @@ public interface OperationParametersFactory {
 			return new com.b2international.fhir.r5.operations.CodeSystemValidateCodeResultParameters(parameters);
 		}
 		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.CodeSystemValidateCodeResultParameters(parameters);
+		}
+		
 	}
 	
 	/**
@@ -214,6 +254,11 @@ public interface OperationParametersFactory {
 		@Override
 		public com.b2international.fhir.r5.operations.BaseParameters create(org.hl7.fhir.r5.model.Parameters parameters) {
 			return new com.b2international.fhir.r5.operations.ConceptMapTranslateParameters(parameters);
+		}
+		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.ConceptMapTranslateParameters(parameters);
 		}
 		
 	}
@@ -240,6 +285,11 @@ public interface OperationParametersFactory {
 			return new com.b2international.fhir.r5.operations.ConceptMapTranslateResultParameters(parameters);
 		}
 		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.ConceptMapTranslateResultParameters(parameters);
+		}
+		
 	}
 	
 	/**
@@ -262,6 +312,11 @@ public interface OperationParametersFactory {
 		@Override
 		public com.b2international.fhir.r5.operations.BaseParameters create(org.hl7.fhir.r5.model.Parameters parameters) {
 			return new com.b2international.fhir.r5.operations.ValueSetExpandParameters(parameters);
+		}
+		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.ValueSetExpandParameters(parameters);
 		}
 		
 	}
@@ -288,6 +343,11 @@ public interface OperationParametersFactory {
 			return new com.b2international.fhir.r5.operations.ValueSetValidateCodeParameters(parameters);
 		}
 		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.ValueSetValidateCodeParameters(parameters);
+		}
+		
 	}
 	
 	/**
@@ -312,6 +372,11 @@ public interface OperationParametersFactory {
 			return new com.b2international.fhir.r5.operations.ValueSetValidateCodeResultParameters(parameters);
 		}
 		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.ValueSetValidateCodeResultParameters(parameters);
+		}
+		
 	}
 	
 	/**
@@ -333,6 +398,11 @@ public interface OperationParametersFactory {
 		@Override
 		public com.b2international.fhir.r5.operations.BaseParameters create(org.hl7.fhir.r5.model.Parameters parameters) {
 			return new com.b2international.fhir.r5.operations.LoadPackageParameters(parameters);
+		}
+		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.LoadPackageParameters(parameters);
 		}
 
 	}
@@ -356,6 +426,11 @@ public interface OperationParametersFactory {
 		@Override
 		public com.b2international.fhir.r5.operations.BaseParameters create(org.hl7.fhir.r5.model.Parameters parameters) {
 			return new com.b2international.fhir.r5.operations.LoadPackageResultParameters(parameters);
+		}
+		
+		@Override
+		public com.b2international.fhir.r6.operations.BaseParameters create(org.hl7.fhir.model.core.Parameters parameters) {
+			return new com.b2international.fhir.r6.operations.LoadPackageResultParameters(parameters);
 		}
 
 	}
