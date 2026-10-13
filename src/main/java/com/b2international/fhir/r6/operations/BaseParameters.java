@@ -28,7 +28,7 @@ import org.hl7.fhir.model.core.DataType;
 import com.google.common.collect.ImmutableSortedSet;
 
 /**
- * @since 0.1
+ * @since 1.0
  */
 public abstract class BaseParameters {
 

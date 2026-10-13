@@ -18,7 +18,7 @@ package com.b2international.fhir.r6.operations;
 import org.hl7.fhir.model.core.*;
 
 /**
- * @since 1.0
+ * @since 0.6.0
  */
 public final class LoadPackageResultParameters extends BaseParameters {
 
@@ -36,7 +36,7 @@ public final class LoadPackageResultParameters extends BaseParameters {
 	}
 	
 	public BooleanType getSuccess() {
-		return (BooleanType) getParameterValue(PARAM_SUCCESS, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_SUCCESS, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 	
 	public LoadPackageResultParameters setSuccess(Boolean success) {
@@ -49,7 +49,7 @@ public final class LoadPackageResultParameters extends BaseParameters {
 	}
 	
 	public IntegerType getNumberOfLoadedCodeSystems() {
-		return (IntegerType) getParameterValue(PARAM_NUMBER_OF_LOADED_CODESYSTEMS, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_NUMBER_OF_LOADED_CODESYSTEMS, Parameters.ParametersParameterComponent::getValueIntegerType);
 	}
 	
 	public LoadPackageResultParameters setNumberOfLoadedCodeSystems(Integer numberOfLoadedCodeSystems) {
@@ -62,7 +62,7 @@ public final class LoadPackageResultParameters extends BaseParameters {
 	}
 	
 	public IntegerType getNumberOfLoadedValueSets() {
-		return (IntegerType) getParameterValue(PARAM_NUMBER_OF_LOADED_VALUESETS, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_NUMBER_OF_LOADED_VALUESETS, Parameters.ParametersParameterComponent::getValueIntegerType);
 	}
 	
 	public LoadPackageResultParameters setNumberOfLoadedValueSets(Integer numberOfLoadedValueSets) {
@@ -75,7 +75,7 @@ public final class LoadPackageResultParameters extends BaseParameters {
 	}
 	
 	public IntegerType getNumberOfLoadedConceptMaps() {
-		return (IntegerType) getParameterValue(PARAM_NUMBER_OF_LOADED_CONCEPTMAPS, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_NUMBER_OF_LOADED_CONCEPTMAPS, Parameters.ParametersParameterComponent::getValueIntegerType);
 	}
 
 	public LoadPackageResultParameters setNumberOfLoadedConceptMaps(Integer numberOfLoadedConceptMaps) {

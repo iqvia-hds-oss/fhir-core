@@ -50,48 +50,30 @@ public class CodeSystemSubsumptionParameters extends BaseParameters {
 		super(parameters);
 	}
 	
-	public CodeType getCodeA() {
-		return (CodeType) getParameterValue(PARAM_CODE_A, Parameters.ParametersParameterComponent::getValue);
-	}
-	
-	public CodeType getCodeB() {
-		return (CodeType) getParameterValue(PARAM_CODE_B, Parameters.ParametersParameterComponent::getValue);
-	}
-	
 	public UriType getSystem() {
-		return (UriType) getParameterValue(PARAM_SYSTEM, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_SYSTEM, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public StringType getVersion() {
-		return (StringType) getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
+	}
+	
+	public CodeType getCodeA() {
+		return getParameterValue(PARAM_CODE_A, Parameters.ParametersParameterComponent::getValueCodeType);
+	}
+	
+	public CodeType getCodeB() {
+		return getParameterValue(PARAM_CODE_B, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
 	public Coding getCodingA() {
-		return (Coding) getParameterValue(PARAM_CODING_A, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODING_A, Parameters.ParametersParameterComponent::getValueCoding);
 	}
 	
 	public Coding getCodingB() {
-		return (Coding) getParameterValue(PARAM_CODING_B, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODING_B, Parameters.ParametersParameterComponent::getValueCoding);
 	}
 
-	public CodeSystemSubsumptionParameters setCodeA(String codeA) {
-		return setCodeA(new CodeType(codeA));
-	}
-	
-	public CodeSystemSubsumptionParameters setCodeA(CodeType codeA) {
-		addParameter(PARAM_CODE_A, codeA);
-		return this;
-	}
-	
-	public CodeSystemSubsumptionParameters setCodeB(String codeB) {
-		return setCodeB(new CodeType(codeB));
-	}
-	
-	public CodeSystemSubsumptionParameters setCodeB(CodeType codeB) {
-		addParameter(PARAM_CODE_B, codeB);
-		return this;
-	}
-	
 	public CodeSystemSubsumptionParameters setSystem(String system) {
 		return setSystem(new UriType(system));
 	}
@@ -107,6 +89,24 @@ public class CodeSystemSubsumptionParameters extends BaseParameters {
 	
 	public CodeSystemSubsumptionParameters setVersion(StringType version) {
 		addParameter(PARAM_VERSION, version);
+		return this;
+	}
+	
+	public CodeSystemSubsumptionParameters setCodeA(String codeA) {
+		return setCodeA(new CodeType(codeA));
+	}
+	
+	public CodeSystemSubsumptionParameters setCodeA(CodeType codeA) {
+		addParameter(PARAM_CODE_A, codeA);
+		return this;
+	}
+	
+	public CodeSystemSubsumptionParameters setCodeB(String codeB) {
+		return setCodeB(new CodeType(codeB));
+	}
+	
+	public CodeSystemSubsumptionParameters setCodeB(CodeType codeB) {
+		addParameter(PARAM_CODE_B, codeB);
 		return this;
 	}
 	
@@ -145,7 +145,7 @@ public class CodeSystemSubsumptionParameters extends BaseParameters {
 			return null;
 		}
 	}
-
+	
 	@Override
 	protected SortedSet<String> getAcceptedParameterNames() {
 		return ACCEPTED_PARAMETER_NAMES;

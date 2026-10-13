@@ -60,7 +60,7 @@ public class CodeSystemValidateCodeParameters extends BaseParameters {
 	}
 	
 	public UriType getUrl() {
-		return (UriType) getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public CodeSystem getCodeSystem() {
@@ -68,35 +68,35 @@ public class CodeSystemValidateCodeParameters extends BaseParameters {
 	}
 	
 	public CodeType getCode() {
-		return (CodeType) getParameterValue(PARAM_CODE, Parameters.ParametersParameterComponent::getValue);
-	}
-	
-	public StringType getVersion() {
-		return (StringType) getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValue);
-	}
-	
-	public StringType getDisplay() {
-		return (StringType) getParameterValue(PARAM_DISPLAY, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 
 	public Coding getCoding() {
-		return (Coding) getParameterValue(PARAM_CODING, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODING, Parameters.ParametersParameterComponent::getValueCoding);
 	}
 	
 	public CodeableConcept getCodeableConcept() {
-		return (CodeableConcept) getParameterValue(PARAM_CODEABLE_CONCEPT, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODEABLE_CONCEPT, Parameters.ParametersParameterComponent::getValueCodeableConcept);
+	}
+	
+	public StringType getVersion() {
+		return getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
+	}
+	
+	public StringType getDisplay() {
+		return getParameterValue(PARAM_DISPLAY, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
 	public DateTimeType getDate() {
-		return (DateTimeType) getParameterValue(PARAM_DATE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DATE, Parameters.ParametersParameterComponent::getValueDateTimeType);
 	}
 	
 	public BooleanType getAbstract() {
-		return (BooleanType) getParameterValue(PARAM_ABSTRACT, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_ABSTRACT, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 	
 	public CodeType getDisplayLanguage() {
-		return (CodeType) getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
 	public CodeSystemValidateCodeParameters setUrl(String url) {
@@ -110,7 +110,7 @@ public class CodeSystemValidateCodeParameters extends BaseParameters {
 	
 	public CodeSystemValidateCodeParameters setCodeSystem(CodeSystem codeSystem) {
 		if (codeSystem != null) {
-			getParameters().addParameter(new Parameters.ParametersParameterComponent().setName(PARAM_CODE_SYSTEM).setResource(codeSystem));
+			getParameters().addParameter(new Parameters.ParametersParameterComponent(getParameters().getModelContext(), PARAM_CODE_SYSTEM).setResource(codeSystem));
 		}
 		return this;
 	}
@@ -121,6 +121,16 @@ public class CodeSystemValidateCodeParameters extends BaseParameters {
 
 	public CodeSystemValidateCodeParameters setCode(CodeType code) {
 		addParameter(PARAM_CODE, code);
+		return this;
+	}
+	
+	public CodeSystemValidateCodeParameters setCoding(Coding coding) {
+		addParameter(PARAM_CODING, coding);
+		return this;
+	}
+	
+	public CodeSystemValidateCodeParameters setCodeableConcept(CodeableConcept codeableConcept) {
+		addParameter(PARAM_CODEABLE_CONCEPT, codeableConcept);
 		return this;
 	}
 	
@@ -139,16 +149,6 @@ public class CodeSystemValidateCodeParameters extends BaseParameters {
 
 	public CodeSystemValidateCodeParameters setDisplay(StringType display) {
 		addParameter(PARAM_DISPLAY, display);
-		return this;
-	}
-	
-	public CodeSystemValidateCodeParameters setCoding(Coding coding) {
-		addParameter(PARAM_CODING, coding);
-		return this;
-	}
-	
-	public CodeSystemValidateCodeParameters setCodeableConcept(CodeableConcept codeableConcept) {
-		addParameter(PARAM_CODEABLE_CONCEPT, codeableConcept);
 		return this;
 	}
 	

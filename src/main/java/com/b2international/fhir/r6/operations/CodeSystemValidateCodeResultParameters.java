@@ -31,23 +31,31 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 	}
 	
 	public BooleanType getResult() {
-		return (BooleanType) getParameterValue("result", Parameters.ParametersParameterComponent::getValue);
-	}
-	
-	public UriType getSystem() {
-		return (UriType) getParameterValue("system", Parameters.ParametersParameterComponent::getValue);
-	}
-	
-	public StringType getVersion() {
-		return (StringType) getParameterValue("version", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("result", Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 	
 	public StringType getMessage() {
-		return (StringType) getParameterValue("message", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("message", Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
 	public StringType getDisplay() {
-		return (StringType) getParameterValue("display", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("display", Parameters.ParametersParameterComponent::getValueStringType);
+	}
+	
+	public CodeType getCode() {
+		return getParameterValue("code", Parameters.ParametersParameterComponent::getValueCodeType);
+	}
+	
+	public UriType getSystem() {
+		return getParameterValue("system", Parameters.ParametersParameterComponent::getValueUriType);
+	}
+	
+	public StringType getVersion() {
+		return getParameterValue("version", Parameters.ParametersParameterComponent::getValueStringType);
+	}
+	
+	public CodeableConcept getCodeableConcept() {
+		return getParameterValue("codeableConcept", Parameters.ParametersParameterComponent::getValueCodeableConcept);
 	}
 	
 	public OperationOutcome getIssues() {
@@ -60,24 +68,6 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 	
 	public CodeSystemValidateCodeResultParameters setResult(BooleanType result) {
 		addParameter("result", result);
-		return this;
-	}
-	
-	public CodeSystemValidateCodeResultParameters setSystem(String system) {
-		return system == null ? this : setSystem(new UriType(system));
-	}
-	
-	public CodeSystemValidateCodeResultParameters setSystem(UriType system) {
-		addParameter("system", system);
-		return this;
-	}
-	
-	public CodeSystemValidateCodeResultParameters setVersion(String version) {
-		return version == null ? this : setVersion(new StringType(version));
-	}
-	
-	public CodeSystemValidateCodeResultParameters setVersion(StringType version) {
-		addParameter("version", version);
 		return this;
 	}
 	
@@ -96,6 +86,38 @@ public class CodeSystemValidateCodeResultParameters extends BaseParameters {
 	
 	public CodeSystemValidateCodeResultParameters setDisplay(StringType display) {
 		addParameter("display", display);
+		return this;
+	}
+	
+	public CodeSystemValidateCodeResultParameters setCode(String code) {
+		return setCode(new CodeType(code));
+	}
+	
+	public CodeSystemValidateCodeResultParameters setCode(CodeType codeType) {
+		addParameter("code", codeType);
+		return this;
+	}
+	
+	public CodeSystemValidateCodeResultParameters setSystem(String system) {
+		return setSystem(new UriType(system));
+	}
+
+	public CodeSystemValidateCodeResultParameters setSystem(UriType uriType) {
+		addParameter("system", uriType);
+		return this;
+	}
+
+	public CodeSystemValidateCodeResultParameters setVersion(String version) {
+		return setVersion(new StringType(version));
+	}
+	
+	public CodeSystemValidateCodeResultParameters setVersion(StringType version) {
+		addParameter("version", version);
+		return this;
+	}
+	
+	public CodeSystemValidateCodeResultParameters setCodeableConcept(CodeableConcept codeableConcept) {
+		addParameter("codeableConcept", codeableConcept);
 		return this;
 	}
 	

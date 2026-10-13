@@ -16,6 +16,7 @@
 package com.b2international.fhir.r6.operations;
 
 import java.util.Date;
+import java.util.List;
 import java.util.SortedSet;
 
 import org.hl7.fhir.model.core.*;
@@ -40,6 +41,7 @@ public class ValueSetValidateCodeParameters extends BaseParameters {
 	private static final String PARAM_DATE = "date";
 	private static final String PARAM_ABSTRACT = "abstract";
 	private static final String PARAM_DISPLAY_LANGUAGE = "displayLanguage";
+	private static final String PARAM_USE_SUPPLEMENT = "useSupplement";
 	
 	private static final SortedSet<String> ACCEPTED_PARAMETER_NAMES = ImmutableSortedSet.of(
 		PARAM_URL,
@@ -54,7 +56,8 @@ public class ValueSetValidateCodeParameters extends BaseParameters {
 		PARAM_CODEABLE_CONCEPT,
 		PARAM_DATE,
 		PARAM_ABSTRACT,
-		PARAM_DISPLAY_LANGUAGE
+		PARAM_DISPLAY_LANGUAGE,
+		PARAM_USE_SUPPLEMENT
 	);
 
 	public ValueSetValidateCodeParameters() {
@@ -66,11 +69,11 @@ public class ValueSetValidateCodeParameters extends BaseParameters {
 	}
 	
 	public UriType getUrl() {
-		return (UriType) getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public UriType getContext() {
-		return (UriType) getParameterValue(PARAM_CONTEXT, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CONTEXT, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public ValueSet getValueSet() {
@@ -78,45 +81,49 @@ public class ValueSetValidateCodeParameters extends BaseParameters {
 	}
 	
 	public StringType getValueSetVersion() {
-		return (StringType) getParameterValue(PARAM_VALUE_SET_VERSION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_VALUE_SET_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
 	public CodeType getCode() {
-		return (CodeType) getParameterValue(PARAM_CODE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
 	public UriType getSystem() {
-		return (UriType) getParameterValue(PARAM_SYSTEM, Parameters.ParametersParameterComponent::getValue); 
+		return getParameterValue(PARAM_SYSTEM, Parameters.ParametersParameterComponent::getValueUriType); 
 	}
 	
 	public StringType getSystemVersion() {
-		return (StringType) getParameterValue(PARAM_SYSTEM_VERSION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_SYSTEM_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
 	public StringType getDisplay() {
-		return (StringType) getParameterValue(PARAM_DISPLAY, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DISPLAY, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 
 	public Coding getCoding() {
-		return (Coding) getParameterValue(PARAM_CODING, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODING, Parameters.ParametersParameterComponent::getValueCoding);
 	}
 	
 	public CodeableConcept getCodeableConcept() {
-		return (CodeableConcept) getParameterValue(PARAM_CODEABLE_CONCEPT, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CODEABLE_CONCEPT, Parameters.ParametersParameterComponent::getValueCodeableConcept);
 	}
 
 	public DateTimeType getDate() {
-		return (DateTimeType) getParameterValue(PARAM_DATE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DATE, Parameters.ParametersParameterComponent::getValueDateTimeType);
 	}
 	
 	public BooleanType getIsAbstract() {
-		return (BooleanType) getParameterValue(PARAM_ABSTRACT, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_ABSTRACT, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 
 	public CodeType getDisplayLanguage() {
-		return (CodeType) getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
+	public List<CanonicalType> getUseSupplement() {
+		return getParameters(PARAM_USE_SUPPLEMENT).stream().map(Parameters.ParametersParameterComponent::getValueCanonicalType).toList();
+	}
+
 	public ValueSetValidateCodeParameters setUrl(String url) {
 		return setUrl(new UriType(url));
 	}
@@ -137,7 +144,7 @@ public class ValueSetValidateCodeParameters extends BaseParameters {
 	
 	public ValueSetValidateCodeParameters setValueSet(ValueSet valueSet) {
 		if (valueSet != null) {
-			getParameters().addParameter(new Parameters.ParametersParameterComponent().setName(PARAM_VALUE_SET).setResource(valueSet));
+			getParameters().addParameter(new Parameters.ParametersParameterComponent(getParameters().getModelContext(), PARAM_VALUE_SET).setResource(valueSet));
 		}
 		return this;
 	}
@@ -228,9 +235,24 @@ public class ValueSetValidateCodeParameters extends BaseParameters {
 		return this;
 	}
 	
+	public ValueSetValidateCodeParameters setUseSupplement(List<?> useSupplements) {
+		if (useSupplements != null && !useSupplements.isEmpty()) {
+			useSupplements.stream().map(u -> {
+				if (u instanceof CanonicalType) {
+					return (CanonicalType) u;
+				} else if (u instanceof String) {
+					return new CanonicalType((String) u);
+				} else {
+					throw new IllegalArgumentException(String.format("'useSupplement' is not of string type. Got: ", u.getClass()));
+				}
+			}).forEach(useSupplement -> addParameter(PARAM_USE_SUPPLEMENT, useSupplement));
+		}
+		return this;
+	}
+	
 	@Override
 	protected SortedSet<String> getAcceptedParameterNames() {
 		return ACCEPTED_PARAMETER_NAMES;
 	}
-	
+
 }

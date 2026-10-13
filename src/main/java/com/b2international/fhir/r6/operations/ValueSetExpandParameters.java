@@ -1,6 +1,6 @@
 /*
  * Copyright 2026 B2i Healthcare, https://b2ihealthcare.com
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -24,10 +24,10 @@ import org.hl7.fhir.model.core.*;
 import com.google.common.collect.ImmutableSortedSet;
 
 /**
- * This class represents a FHIR ValueSet$expand operation request in the R4 version.
- *
- * @see <a href="https://hl7.org/fhir/R4/valueset-operation-expand.html">FHIR:ValueSet:Operations:expand</a>
- *
+ * This class represents a FHIR ValueSet$expand operation request in the R5 version.
+ * 
+ * @see <a href="https://hl7.org/fhir/R5/valueset-operation-expand.html">FHIR:ValueSet:Operations:expand</a>
+ * 
  * @since 1.0
  */
 public final class ValueSetExpandParameters extends BaseParameters {
@@ -45,10 +45,12 @@ public final class ValueSetExpandParameters extends BaseParameters {
 	private static final String PARAM_DESIGNATION = "designation";
 	private static final String PARAM_INCLUDE_DEFINITION = "includeDefinition";
 	private static final String PARAM_ACTIVE_ONLY = "activeOnly";
+	private static final String PARAM_USE_SUPPLEMENT = "useSupplement";
 	private static final String PARAM_EXCLUDE_NESTED = "excludeNested";
 	private static final String PARAM_EXCLUDE_NOT_FOR_UI = "excludeNotForUI";
 	private static final String PARAM_EXCLUDE_POST_COORDINATED = "excludePostCoordinated";
 	private static final String PARAM_DISPLAY_LANGUAGE = "displayLanguage";
+	private static final String PARAM_PROPERTY = "property";
 	private static final String PARAM_EXCLUDE_SYSTEM = "exclude-system";
 	private static final String PARAM_SYSTEM_VERSION = "system-version";
 	private static final String PARAM_CHECK_SYSTEM_VERSION = "check-system-version";
@@ -71,10 +73,12 @@ public final class ValueSetExpandParameters extends BaseParameters {
 		PARAM_DESIGNATION,
 		PARAM_INCLUDE_DEFINITION,
 		PARAM_ACTIVE_ONLY,
+		PARAM_USE_SUPPLEMENT,
 		PARAM_EXCLUDE_NESTED,
 		PARAM_EXCLUDE_NOT_FOR_UI,
 		PARAM_EXCLUDE_POST_COORDINATED,
 		PARAM_DISPLAY_LANGUAGE,
+		PARAM_PROPERTY,
 		PARAM_EXCLUDE_SYSTEM,
 		PARAM_SYSTEM_VERSION,
 		PARAM_CHECK_SYSTEM_VERSION,
@@ -87,130 +91,128 @@ public final class ValueSetExpandParameters extends BaseParameters {
 	public ValueSetExpandParameters() {
 		super(new Parameters());
 	}
-
+	
 	public ValueSetExpandParameters(Parameters parameters) {
 		super(parameters);
 	}
-
+	
 	public UriType getUrl() {
-		return (UriType) getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValueUriType);
 	}
-
+	
 	public ValueSet getValueSet() {
 		return getParameterValue(PARAM_VALUE_SET, value -> (ValueSet) value.getResource());
 	}
-
+	
 	public StringType getValueSetVersion() {
-		return (StringType) getParameterValue(PARAM_VALUE_SET_VERSION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_VALUE_SET_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
 	}
-
+	
 	public UriType getContext() {
-		return (UriType) getParameterValue(PARAM_CONTEXT, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CONTEXT, Parameters.ParametersParameterComponent::getValueUriType);
 	}
-
+	
 	public CodeType getContextDirection() {
-		return (CodeType) getParameterValue(PARAM_CONTEXT_DIRECTION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CONTEXT_DIRECTION, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
-
+	
 	public StringType getFilter() {
-		return (StringType) getParameterValue(PARAM_FILTER, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_FILTER, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 
 	public DateTimeType getDate() {
-		return (DateTimeType) getParameterValue(PARAM_DATE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DATE, Parameters.ParametersParameterComponent::getValueDateTimeType);
 	}
 
 	public IntegerType getOffset() {
-		return (IntegerType) getParameterValue(PARAM_OFFSET, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_OFFSET, Parameters.ParametersParameterComponent::getValueIntegerType);
 	}
 
 	public IntegerType getCount() {
-		return (IntegerType) getParameterValue(PARAM_COUNT, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_COUNT, Parameters.ParametersParameterComponent::getValueIntegerType);
 	}
 
 	public BooleanType getIncludeDesignations() {
-		return (BooleanType) getParameterValue(PARAM_INCLUDE_DESIGNATIONS, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_INCLUDE_DESIGNATIONS, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
-
+	
 	public List<StringType> getDesignation() {
-		return getParameters(PARAM_DESIGNATION).stream().map(param -> {
-			return (StringType) param.getValue();
-		}).toList();
+		return getParameters(PARAM_DESIGNATION).stream().map(Parameters.ParametersParameterComponent::getValueStringType).toList();
 	}
 
 	public BooleanType getIncludeDefinition() {
-		return (BooleanType) getParameterValue(PARAM_INCLUDE_DEFINITION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_INCLUDE_DEFINITION, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 
 	public BooleanType getActiveOnly() {
-		return (BooleanType) getParameterValue(PARAM_ACTIVE_ONLY, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_ACTIVE_ONLY, Parameters.ParametersParameterComponent::getValueBooleanType);
+	}
+	
+	public List<CanonicalType> getUseSupplement() {
+		return getParameters(PARAM_USE_SUPPLEMENT).stream().map(Parameters.ParametersParameterComponent::getValueCanonicalType).toList();
 	}
 
 	public BooleanType getExcludeNested() {
-		return (BooleanType) getParameterValue(PARAM_EXCLUDE_NESTED, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_EXCLUDE_NESTED, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 
 	public BooleanType getExcludeNotForUI() {
-		return (BooleanType) getParameterValue(PARAM_EXCLUDE_NOT_FOR_UI, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_EXCLUDE_NOT_FOR_UI, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 
 	public BooleanType getExcludePostCoordinated() {
-		return (BooleanType) getParameterValue(PARAM_EXCLUDE_POST_COORDINATED, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_EXCLUDE_POST_COORDINATED, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
-
+	
 	public CodeType getDisplayLanguage() {
-		return (CodeType) getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
-
+	
+	public List<StringType> getProperty() {
+		return getParameters(PARAM_PROPERTY).stream().map(Parameters.ParametersParameterComponent::getValueStringType).toList();
+	}
+	
 	public List<CanonicalType> getExcludeSystem() {
-		return getParameters(PARAM_EXCLUDE_SYSTEM).stream().map(param -> {
-			return (CanonicalType) param.getValue();
-		}).toList();
+		return getParameters(PARAM_EXCLUDE_SYSTEM).stream().map(Parameters.ParametersParameterComponent::getValueCanonicalType).toList();
 	}
-
+	
 	public List<CanonicalType> getSystemVersion() {
-		return getParameters(PARAM_SYSTEM_VERSION).stream().map(param -> {
-			return (CanonicalType) param.getValue();
-		}).toList();
+		return getParameters(PARAM_SYSTEM_VERSION).stream().map(Parameters.ParametersParameterComponent::getValueCanonicalType).toList();
 	}
-
+	
 	public List<CanonicalType> getCheckSystemVersion() {
-		return getParameters(PARAM_CHECK_SYSTEM_VERSION).stream().map(param -> {
-			return (CanonicalType) param.getValue();
-		}).toList();
+		return getParameters(PARAM_CHECK_SYSTEM_VERSION).stream().map(Parameters.ParametersParameterComponent::getValueCanonicalType).toList();
 	}
-
+	
 	public List<CanonicalType> getForceSystemVersion() {
-		return getParameters(PARAM_FORCE_SYSTEM_VERSION).stream().map(param -> {
-			return (CanonicalType) param.getValue();
-		}).toList();
+		return getParameters(PARAM_FORCE_SYSTEM_VERSION).stream().map(Parameters.ParametersParameterComponent::getValueCanonicalType).toList();
 	}
 
 	public ValueSetExpandParameters setUrl(String url) {
 		return setUrl(new UriType(url));
 	}
-
+	
 	public ValueSetExpandParameters setUrl(UriType url) {
 		addParameter(PARAM_URL, url);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setValueSet(ValueSet valueSet) {
 		if (valueSet != null) {
-			getParameters().addParameter(new Parameters.ParametersParameterComponent().setName(PARAM_VALUE_SET).setResource(valueSet));
+			getParameters().addParameter(new Parameters.ParametersParameterComponent(getParameters().getModelContext(), PARAM_VALUE_SET).setResource(valueSet));
 		}
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setValueSetVersion(String valueSetVersion) {
 		return setValueSetVersion(new StringType(valueSetVersion));
 	}
-
+	
 	public ValueSetExpandParameters setValueSetVersion(StringType valueSetVersion) {
 		addParameter(PARAM_VALUE_SET_VERSION, valueSetVersion);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setContext(String context) {
 		return setContext(new UriType(context));
 	}
@@ -219,65 +221,65 @@ public final class ValueSetExpandParameters extends BaseParameters {
 		addParameter(PARAM_CONTEXT, context);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setContextDirection(String contextDirection) {
 		return setContextDirection(new CodeType(contextDirection));
 	}
-
+	
 	public ValueSetExpandParameters setContextDirection(CodeType contextDirection) {
 		addParameter(PARAM_CONTEXT_DIRECTION, contextDirection);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setFilter(String filter) {
 		return setFilter(new StringType(filter));
 	}
-
+	
 	public ValueSetExpandParameters setFilter(StringType filter) {
 		addParameter(PARAM_FILTER, filter);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setDate(String date) {
 		return setDate(new DateTimeType(date));
 	}
-
+	
 	public ValueSetExpandParameters setDate(Date date) {
 		return setDate(new DateTimeType(date));
 	}
-
+	
 	public ValueSetExpandParameters setDate(DateTimeType date) {
 		addParameter(PARAM_DATE, date);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setOffset(Integer offset) {
 		return setOffset(new IntegerType(offset));
 	}
-
+	
 	public ValueSetExpandParameters setOffset(IntegerType offset) {
 		addParameter(PARAM_OFFSET, offset);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setCount(Integer count) {
 		return setCount(new IntegerType(count));
 	}
-
+	
 	public ValueSetExpandParameters setCount(IntegerType count) {
 		addParameter(PARAM_COUNT, count);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setIncludeDesignations(Boolean includeDesignations) {
 		return includeDesignations == null ? this : setIncludeDesignations(new BooleanType(includeDesignations));
 	}
-
+	
 	public ValueSetExpandParameters setIncludeDesignations(BooleanType includeDesignations) {
 		addParameter(PARAM_INCLUDE_DESIGNATIONS, includeDesignations);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setDesignation(List<?> designation) {
 		if (designation != null && !designation.isEmpty()) {
 			designation.stream().map(d -> {
@@ -292,61 +294,91 @@ public final class ValueSetExpandParameters extends BaseParameters {
 		}
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setIncludeDefinition(Boolean includeDefinition) {
 		return setIncludeDefinition(new BooleanType(includeDefinition));
 	}
-
+	
 	public ValueSetExpandParameters setIncludeDefinition(BooleanType includeDefinition) {
 		addParameter(PARAM_INCLUDE_DEFINITION, includeDefinition);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setActiveOnly(Boolean activeOnly) {
 		return activeOnly == null ? this : setActiveOnly(new BooleanType(activeOnly));
 	}
-
+	
 	public ValueSetExpandParameters setActiveOnly(BooleanType activeOnly) {
 		addParameter(PARAM_ACTIVE_ONLY, activeOnly);
 		return this;
 	}
-
+	
+	public ValueSetExpandParameters setUseSupplement(List<?> useSupplements) {
+		if (useSupplements != null && !useSupplements.isEmpty()) {
+			useSupplements.stream().map(u -> {
+				if (u instanceof CanonicalType) {
+					return (CanonicalType) u;
+				} else if (u instanceof String) {
+					return new CanonicalType((String) u);
+				} else {
+					throw new IllegalArgumentException(String.format("'useSupplement' is not of string type. Got: ", u.getClass()));
+				}
+			}).forEach(useSupplement -> addParameter(PARAM_USE_SUPPLEMENT, useSupplement));
+		}
+		return this;
+	}
+	
 	public ValueSetExpandParameters setExcludeNested(Boolean excludeNested) {
 		return excludeNested == null ? this : setExcludeNested(new BooleanType(excludeNested));
 	}
-
+	
 	public ValueSetExpandParameters setExcludeNested(BooleanType excludeNested) {
 		addParameter(PARAM_EXCLUDE_NESTED, excludeNested);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setExcludeNotForUI(Boolean excludeNotForUI) {
 		return excludeNotForUI == null ? this : setExcludeNotForUI(new BooleanType(excludeNotForUI));
 	}
-
+	
 	public ValueSetExpandParameters setExcludeNotForUI(BooleanType excludeNotForUI) {
 		addParameter(PARAM_EXCLUDE_NOT_FOR_UI, excludeNotForUI);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setExcludePostCoordinated(Boolean excludePostCoordinated) {
 		return excludePostCoordinated == null ? this : setExcludePostCoordinated(new BooleanType(excludePostCoordinated));
 	}
-
+	
 	public ValueSetExpandParameters setExcludePostCoordinated(BooleanType excludePostCoordinated) {
 		addParameter(PARAM_EXCLUDE_POST_COORDINATED, excludePostCoordinated);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setDisplayLanguage(String displayLanguage) {
 		return setDisplayLanguage(new CodeType(displayLanguage));
 	}
-
+	
 	public ValueSetExpandParameters setDisplayLanguage(CodeType displayLanguage) {
 		addParameter(PARAM_DISPLAY_LANGUAGE, displayLanguage);
 		return this;
 	}
-
+	
+	public ValueSetExpandParameters setProperty(List<?> property) {
+		if (property != null && !property.isEmpty()) {
+			property.stream().map(prop -> {
+				if (prop instanceof StringType) {
+					return (StringType) prop;
+				} else if (prop instanceof String) {
+					return new StringType((String) prop);
+				} else {
+					throw new IllegalArgumentException(String.format("'property' is not of string type. Got: ", prop.getClass()));
+				}
+			}).forEach(propertyparam -> addParameter(PARAM_PROPERTY, propertyparam));
+		}
+		return this;
+	}
+	
 	public ValueSetExpandParameters setExcludeSystem(List<?> excludeSystems) {
 		if (excludeSystems != null && !excludeSystems.isEmpty()) {
 			excludeSystems.stream().map(es -> {
@@ -361,7 +393,7 @@ public final class ValueSetExpandParameters extends BaseParameters {
 		}
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setSystemVersion(List<?> systemVersions) {
 		if (systemVersions != null && !systemVersions.isEmpty()) {
 			systemVersions.stream().map(sv -> {
@@ -376,7 +408,7 @@ public final class ValueSetExpandParameters extends BaseParameters {
 		}
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setCheckSystemVersion(List<?> checkSystemVersions) {
 		if (checkSystemVersions != null && !checkSystemVersions.isEmpty()) {
 			checkSystemVersions.stream().map(csv -> {
@@ -391,7 +423,7 @@ public final class ValueSetExpandParameters extends BaseParameters {
 		}
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setForceSystemVersion(List<?> forceSystemVersions) {
 		if (forceSystemVersions != null && !forceSystemVersions.isEmpty()) {
 			forceSystemVersions.stream().map(fsv -> {
@@ -406,35 +438,35 @@ public final class ValueSetExpandParameters extends BaseParameters {
 		}
 		return this;
 	}
-
+	
 	// XXX Snowy specific parameters
-
+	
 	public StringType getAfter() {
-		return (StringType) getParameterValue(PARAM_AFTER, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_AFTER, Parameters.ParametersParameterComponent::getValueStringType);
 	}
-
+	
 	public BooleanType getWithHistorySupplements() {
-		return (BooleanType) getParameterValue(PARAM_WITH_HISTORY_SUPPLEMENTS, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_WITH_HISTORY_SUPPLEMENTS, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
-
+	
 	public ValueSetExpandParameters setAfter(String after) {
 		return setAfter(new StringType(after));
 	}
-
+	
 	public ValueSetExpandParameters setAfter(StringType after) {
 		addParameter(PARAM_AFTER, after);
 		return this;
 	}
-
+	
 	public ValueSetExpandParameters setWithHistorySupplements(Boolean withHistorySupplements) {
 		return withHistorySupplements == null ? this : setWithHistorySupplements(new BooleanType(withHistorySupplements));
 	}
-
+	
 	public ValueSetExpandParameters setWithHistorySupplements(BooleanType withHistorySupplements) {
 		addParameter(PARAM_WITH_HISTORY_SUPPLEMENTS, withHistorySupplements);
 		return this;
 	}
-
+ 
 	@Override
 	protected SortedSet<String> getAcceptedParameterNames() {
 		return ACCEPTED_PARAMETER_NAMES;

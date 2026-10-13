@@ -18,7 +18,7 @@ package com.b2international.fhir.r6.operations;
 import java.util.List;
 
 import org.hl7.fhir.model.core.*;
-import org.hl7.fhir.r4.model.codesystems.ConceptMapEquivalence;
+import org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship;
 
 /**
  * @since 1.0
@@ -34,20 +34,20 @@ public class ConceptMapTranslateResultParameters extends BaseParameters {
 	}
 
 	public BooleanType getResult() {
-		return (BooleanType) getParameterValue("result", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("result", Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 	
 	
 	public StringType getMessage() {
-		return (StringType) getParameterValue("message", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("message", Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
 	public List<Match> getMatch() {
 		return getParameters("match").stream().map(param -> new Match(param.getPartList())).toList();
 	}
 	
-	public ConceptMapTranslateResultParameters setResult(Boolean isResult) {
-		return setResult(new BooleanType(isResult));
+	public ConceptMapTranslateResultParameters setResult(Boolean result) {
+		return setResult(new BooleanType(result));
 	}
 	
 	public ConceptMapTranslateResultParameters setResult(BooleanType result) {
@@ -78,44 +78,64 @@ public class ConceptMapTranslateResultParameters extends BaseParameters {
 	public static final class Match extends BasePart {
 		
 		public Match() {
-			super();
+			super(null);
 		}
 		
 		public Match(List<Parameters.ParametersParameterComponent> part) {
 			super(part);
 		}
 		
-		public CodeType getEquivalence() {
-			return (CodeType) getParameterValue("equivalence", Parameters.ParametersParameterComponent::getValue);
+		public CodeType getRelationship() {
+			return getParameterValue("relationship", Parameters.ParametersParameterComponent::getValueCodeType);
 		}
 		
 		public Coding getConcept() {
-			return (Coding) getParameterValue("concept", Parameters.ParametersParameterComponent::getValue);
+			return getParameterValue("concept", Parameters.ParametersParameterComponent::getValueCoding);
+		}
+		
+		public List<Property> getProperty() {
+			return getParameters("property").map(param -> new Property(param.getPartList())).toList();
 		}
 		
 		public List<Product> getProduct() {
 			return getParameters("product").map(param -> new Product(param.getPartList())).toList();
 		}
 		
-		public UriType getSource() {
-			return (UriType) getParameterValue("source", Parameters.ParametersParameterComponent::getValue);
+		public List<Product> getDependsOn() {
+			return getParameters("dependsOn").map(param -> new Product(param.getPartList())).toList();
 		}
 		
-		public Match setEquivalence(ConceptMapEquivalence equivalence) {
-			return equivalence == null ? this : setEquivalence(equivalence.toCode());
+		public UriType getOriginMap() {
+			return getParameterValue("originMap", Parameters.ParametersParameterComponent::getValueUriType);
 		}
 		
-		public Match setEquivalence(String equivalence) {
-			return setEquivalence(new CodeType(equivalence));
+		public Match setRelationship(ConceptMapRelationship relationship) {
+			return relationship == null ? this : setRelationship(relationship.toCode());
 		}
 		
-		public Match setEquivalence(CodeType equivalence) {
-			addParameter("equivalence", equivalence);
+		public Match setRelationship(String relationship) {
+			return setRelationship(new CodeType(relationship));
+		}
+		
+		public Match setRelationship(CodeType relationship) {
+			addParameter("relationship", relationship);
 			return this;
 		}
 		
 		public Match setConcept(Coding concept) {
 			addParameter("concept", concept);
+			return this;
+		}
+		
+		public Match setProperty(List<Property> property) {
+			if (property == null) {
+				return this;
+			}
+			
+			property.stream()
+				.map(prop -> new Parameters.ParametersParameterComponent().setName("property").setPartList(prop.getPartList()))
+				.forEach(getPartList()::add);
+			
 			return this;
 		}
 		
@@ -126,51 +146,102 @@ public class ConceptMapTranslateResultParameters extends BaseParameters {
 			
 			product.stream()
 				.map(prod -> new Parameters.ParametersParameterComponent().setName("product").setPartList(prod.getPartList()))
-				.forEach(this::addParameter);
+				.forEach(getPartList()::add);
 			
 			return this;
 		}
 		
-		public Match setSource(String source) {
-			return setSource(new UriType(source));
+		public Match setDependsOn(List<Product> dependsOn) {
+			if (dependsOn == null) {
+				return this;
+			}
+			
+			dependsOn.stream()
+				.map(dep -> new Parameters.ParametersParameterComponent().setName("dependsOn").setPartList(dep.getPartList()))
+				.forEach(getPartList()::add);
+			
+			return this;
 		}
 		
-		public Match setSource(UriType source) {
-			addParameter("source", source);
+		public Match setOriginMap(String originMap) {
+			return setOriginMap(new UriType(originMap));
+		}
+		
+		public Match setOriginMap(UriType originMap) {
+			addParameter("originMap", originMap);
 			return this;
+		}
+
+		public static final class Property extends BasePart {
+			
+			public Property() {
+				super(null);
+			}
+			
+			public Property(List<Parameters.ParametersParameterComponent> part) {
+				super(part);
+			}
+			
+			// Mandatory
+			public UriType getUri() {
+				return getParameter("uri").map(Parameters.ParametersParameterComponent::getValueUriType).get();
+			}
+			
+			// Mandatory
+			public DataType getValue() {
+				return getParameter("value").map(Parameters.ParametersParameterComponent::getValue).get();
+			}
+			
+			public Property setUri(String uri) {
+				return setUri(new UriType(uri));
+			}
+			
+			public Property setUri(UriType uriType) {
+				addParameter("uri", uriType);
+				return this;
+			}
+			
+			public Property setValue(DataType value) {
+				addParameter("value", value);
+				return this;
+			}
+						
 		}
 		
 		public static final class Product extends BasePart {
 			
 			public Product() {
-				super();
+				super(null);
 			}
 			
 			public Product(List<Parameters.ParametersParameterComponent> part) {
 				super(part);
 			}
 			
-			public UriType getElement() {
-				return (UriType) getParameter("element").map(Parameters.ParametersParameterComponent::getValue).get();
+			// Mandatory
+			public UriType getAttribute() {
+				return getParameter("attribute").map(Parameters.ParametersParameterComponent::getValueUriType).get();
 			}
 			
-			public Coding getConcept() {
-				return (Coding) getParameter("concept").map(Parameters.ParametersParameterComponent::getValue).get();
+			// Mandatory
+			public DataType getValue() {
+				return getParameter("value").map(Parameters.ParametersParameterComponent::getValue).get();
 			}
 			
-			public Product setElement(String element) {
-				return setElement(new UriType(element));
+			public Product setAttribute(String attribute) {
+				return setAttribute(new UriType(attribute));
 			}
 
-			public Product setElement(UriType element) {
-				addParameter("element", element);
+			public Product setAttribute(UriType attribute) {
+				addParameter("attribute", attribute);
 				return this;
 			}
 			
-			public Product setConcept(Coding concept) {
-				addParameter("concept", concept);
+			public Product setValue(DataType value) {
+				addParameter("value", value);
 				return this;
 			}
+			
 		}
 	}
 }

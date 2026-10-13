@@ -30,35 +30,39 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	private static final String PARAM_URL = "url";
 	private static final String PARAM_CONCEPT_MAP = "conceptMap";
 	private static final String PARAM_CONCEPT_MAP_VERSION = "conceptMapVersion";
-	private static final String PARAM_CODE = "code";
+	private static final String PARAM_SOURCE_CODE = "sourceCode";
 	private static final String PARAM_SYSTEM = "system";
 	private static final String PARAM_VERSION = "version";
-	private static final String PARAM_SOURCE = "source";
-	private static final String PARAM_CODING = "coding";
-	private static final String PARAM_CODEABLE_CONCEPT = "codeableConcept";
-	private static final String PARAM_TARGET = "target";
-	private static final String PARAM_TARGET_SYSTEM = "targetsystem";
+	private static final String PARAM_SOURCE_SCOPE = "sourceScope";
+	private static final String PARAM_SOURCE_CODING = "sourceCoding";
+	private static final String PARAM_SOURCE_CODEABLE_CONCEPT = "sourceCodeableConcept";
+	private static final String PARAM_TARGET_CODE = "targetCode";
+	private static final String PARAM_TARGET_CODING = "targetCoding";
+	private static final String PARAM_TARGET_CODEABLECONCEPT = "targetCodeableConcept";
+	private static final String PARAM_TARGET_SCOPE = "targetScope";
+	private static final String PARAM_TARGET_SYSTEM = "targetSystem"; // camelCase fixed in R5
 	private static final String PARAM_DEPENDENCY = "dependency";
-	private static final String PARAM_REVERSE = "reverse";
 	private static final String PARAM_DISPLAY_LANGUAGE = "displayLanguage";  // This parameter does not exist in the specification
 	
 	private static final SortedSet<String> ACCEPTED_PARAMETER_NAMES = ImmutableSortedSet.of(
 		PARAM_URL,
 		PARAM_CONCEPT_MAP,
 		PARAM_CONCEPT_MAP_VERSION,
-		PARAM_CODE,
+		PARAM_SOURCE_CODE,
 		PARAM_SYSTEM,
 		PARAM_VERSION,
-		PARAM_SOURCE,
-		PARAM_CODING,
-		PARAM_CODEABLE_CONCEPT,
-		PARAM_TARGET,
+		PARAM_SOURCE_SCOPE,
+		PARAM_SOURCE_CODING,
+		PARAM_SOURCE_CODEABLE_CONCEPT,
+		PARAM_TARGET_CODE,
+		PARAM_TARGET_CODING,
+		PARAM_TARGET_CODEABLECONCEPT,
+		PARAM_TARGET_SCOPE,
 		PARAM_TARGET_SYSTEM,
 		PARAM_DEPENDENCY,
 		PARAM_DISPLAY_LANGUAGE,
-		String.join(".", PARAM_DEPENDENCY, Dependency.PARAM_ELEMENT),
-		String.join(".", PARAM_DEPENDENCY, Dependency.PARAM_CONCEPT),
-		PARAM_REVERSE
+		String.join(".", PARAM_DEPENDENCY, Dependency.PARAM_ATTRIBUTE),
+		String.join(".", PARAM_DEPENDENCY, Dependency.PARAM_VALUE)
 	);
 
 	public ConceptMapTranslateParameters() {
@@ -70,7 +74,7 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	}
 	
 	public UriType getUrl() {
-		return (UriType) getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_URL, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public ConceptMap getConceptMap() {
@@ -78,39 +82,51 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	}
 	
 	public StringType getConceptMapVersion() {
-		return (StringType) getParameterValue(PARAM_CONCEPT_MAP_VERSION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_CONCEPT_MAP_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
-	public StringType getCode() {
-		return (StringType) getParameterValue(PARAM_CODE, Parameters.ParametersParameterComponent::getValue);
+	public CodeType getSourceCode() {
+		return getParameterValue(PARAM_SOURCE_CODE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
 	public UriType getSystem() {
-		return (UriType) getParameterValue(PARAM_SYSTEM, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_SYSTEM, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public StringType getVersion() {
-		return (StringType) getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
-	public UriType getSource() {
-		return (UriType) getParameterValue(PARAM_SOURCE, Parameters.ParametersParameterComponent::getValue);
+	public UriType getSourceScope() {
+		return getParameterValue(PARAM_SOURCE_SCOPE, Parameters.ParametersParameterComponent::getValueUriType);
+	}
+
+	public Coding getSourceCoding() {
+		return getParameterValue(PARAM_SOURCE_CODING, Parameters.ParametersParameterComponent::getValueCoding);
 	}
 	
-	public Coding getCoding() {
-		return (Coding) getParameterValue(PARAM_CODING, Parameters.ParametersParameterComponent::getValue);
+	public CodeableConcept getSourceCodeableConcept() {
+		return getParameterValue(PARAM_SOURCE_CODEABLE_CONCEPT, Parameters.ParametersParameterComponent::getValueCodeableConcept);
 	}
 	
-	public CodeableConcept getCodeableConcept() {
-		return (CodeableConcept) getParameterValue(PARAM_CODEABLE_CONCEPT, Parameters.ParametersParameterComponent::getValue);
+	public CodeType getTargetCode() {
+		return getParameterValue(PARAM_TARGET_CODE, Parameters.ParametersParameterComponent::getValueCodeType);
+	}
+
+	public Coding getTargetCoding() {
+		return getParameterValue(PARAM_TARGET_CODING, Parameters.ParametersParameterComponent::getValueCoding);
 	}
 	
-	public UriType getTarget() {
-		return (UriType) getParameterValue(PARAM_TARGET, Parameters.ParametersParameterComponent::getValue);
+	public CodeableConcept getTargetCodeableConcept() {
+		return getParameterValue(PARAM_TARGET_CODEABLECONCEPT, Parameters.ParametersParameterComponent::getValueCodeableConcept);
+	}
+	
+	public UriType getTargetScope() {
+		return getParameterValue(PARAM_TARGET_SCOPE, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public UriType getTargetSystem() {
-		return (UriType) getParameterValue(PARAM_TARGET_SYSTEM, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_TARGET_SYSTEM, Parameters.ParametersParameterComponent::getValueUriType);
 	}
 	
 	public List<Dependency> getDependency() {
@@ -118,12 +134,7 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	}
 	
 	public CodeType getDisplayLanguage() {
-		return (CodeType) getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValue);
-	}
-	
-	
-	public BooleanType getReverse() {
-		return (BooleanType) getParameterValue(PARAM_REVERSE, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_DISPLAY_LANGUAGE, Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
 	public ConceptMapTranslateParameters setUrl(String url) {
@@ -137,7 +148,7 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	
 	public ConceptMapTranslateParameters setConceptMap(ConceptMap conceptMap) {
 		if (conceptMap != null) {
-			getParameters().addParameter(new Parameters.ParametersParameterComponent().setName(PARAM_CONCEPT_MAP).setResource(conceptMap));
+			getParameters().addParameter(new Parameters.ParametersParameterComponent(getParameters().getModelContext(), PARAM_CONCEPT_MAP).setResource(conceptMap));
 		}
 		return this;
 	}
@@ -148,15 +159,6 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 	
 	public ConceptMapTranslateParameters setConceptMapVersion(StringType conceptMapVersion) {
 		addParameter(PARAM_CONCEPT_MAP_VERSION, conceptMapVersion);
-		return this;
-	}
-	
-	public ConceptMapTranslateParameters setCode(String code) {
-		return setCode(new CodeType(code));
-	}
-	
-	public ConceptMapTranslateParameters setCode(CodeType code) {
-		addParameter(PARAM_CODE, code);
 		return this;
 	}
 	
@@ -177,32 +179,60 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 		addParameter(PARAM_VERSION, version);
 		return this;
 	}
-	
-	public ConceptMapTranslateParameters setSource(String source) {
-		return setSource(new UriType(source));
-	}
-	
-	public ConceptMapTranslateParameters setSource(UriType source) {
-		addParameter(PARAM_SOURCE, source);
-		return this;
-	}
 
-	public ConceptMapTranslateParameters setCoding(Coding coding) {
-		addParameter(PARAM_CODING, coding);
+	public ConceptMapTranslateParameters setSourceCode(String sourceCode) {
+		return setSourceCode(new CodeType(sourceCode));
+	}
+	
+	public ConceptMapTranslateParameters setSourceCode(CodeType sourceCode) {
+		addParameter(PARAM_SOURCE_CODE, sourceCode);
 		return this;
 	}
 	
-	public ConceptMapTranslateParameters setCodeableConcept(CodeableConcept codeableConcept) {
-		addParameter(PARAM_CODEABLE_CONCEPT, codeableConcept);
+	public ConceptMapTranslateParameters setSourceCoding(Coding sourceCoding) {
+		addParameter(PARAM_SOURCE_CODING, sourceCoding);
 		return this;
 	}
 	
-	public ConceptMapTranslateParameters setTarget(String target) {
-		return setTarget(new UriType(target));
+	public ConceptMapTranslateParameters setSourceCodeableConcept(CodeableConcept sourceCodeableConcept) {
+		addParameter(PARAM_SOURCE_CODEABLE_CONCEPT, sourceCodeableConcept);
+		return this;
 	}
 	
-	public ConceptMapTranslateParameters setTarget(UriType target) {
-		addParameter(PARAM_TARGET, target);
+	public ConceptMapTranslateParameters setSourceScope(String sourceScope) {
+		return setSourceScope(new UriType(sourceScope));
+	}
+	
+	public ConceptMapTranslateParameters setSourceScope(UriType sourceScope) {
+		addParameter(PARAM_SOURCE_SCOPE, sourceScope);
+		return this;
+	}
+	
+	public ConceptMapTranslateParameters setTargetCode(String targetCode) {
+		return setTargetCode(new CodeType(targetCode));
+	}
+	
+	public ConceptMapTranslateParameters setTargetCode(CodeType targetCode) {
+		addParameter(PARAM_TARGET_CODE, targetCode);
+		return this;
+	}
+	
+	public ConceptMapTranslateParameters setTargetCoding(Coding targetCoding) {
+		addParameter(PARAM_TARGET_CODING, targetCoding);
+		return this;
+	}
+	
+	public ConceptMapTranslateParameters setTargetCodeableConcept(CodeableConcept targetCodeableConcept) {
+		addParameter(PARAM_TARGET_CODEABLECONCEPT, targetCodeableConcept);
+		return this;
+	}
+	
+	public ConceptMapTranslateParameters setTargetScope(String targetScope) {
+		return setTargetScope(new UriType(targetScope));
+	}
+	
+	public ConceptMapTranslateParameters setTargetScope(UriType targetScope) {
+		addParameter(PARAM_TARGET_SCOPE, targetScope);
 		return this;
 	}
 	
@@ -236,24 +266,15 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 		return this;
 	}
 	
-	public ConceptMapTranslateParameters setReverse(Boolean isReverse) {
-		return isReverse == null ? this : setReverse(new BooleanType(isReverse));
-	}
-	
-	public ConceptMapTranslateParameters setReverse(BooleanType isReverse) {
-		addParameter(PARAM_REVERSE, isReverse);
-		return this;
-	}
-
 	@Override
 	protected SortedSet<String> getAcceptedParameterNames() {
 		return ACCEPTED_PARAMETER_NAMES;
 	}
 
-	public static final class Dependency extends BasePart {
+	public static final class Dependency extends BasePart  {
 		
-		private static final String PARAM_ELEMENT = "element";
-		private static final String PARAM_CONCEPT = "concept";
+		private static final String PARAM_ATTRIBUTE = "attribute";
+		private static final String PARAM_VALUE = "value";
 
 		public Dependency() {
 			super(null);
@@ -263,25 +284,29 @@ public class ConceptMapTranslateParameters extends BaseParameters {
 			super(part);
 		}
 		
-		public final UriType getElement() {
-			return (UriType) getParameterValue(PARAM_ELEMENT, Parameters.ParametersParameterComponent::getValue);
+		public final UriType getAttribute() {
+			return getParameterValue(PARAM_ATTRIBUTE, Parameters.ParametersParameterComponent::getValueUriType);
 		}
 		
-		public final CodeableConcept getConcept() {
-			return (CodeableConcept) getParameterValue(PARAM_CONCEPT, Parameters.ParametersParameterComponent::getValue);
+		public final DataType getValue() {
+			return getParameterValue(PARAM_VALUE, Parameters.ParametersParameterComponent::getValue);
 		}
 		
-		public Dependency setElement(String element) {
-			return setElement(new UriType(element));
+		public Dependency setAttribute(String attribute) {
+			return setAttribute(new UriType(attribute));
 		}
 		
-		public Dependency setElement(UriType element) {
-			addParameter(PARAM_ELEMENT, element);
+		public Dependency setAttribute(UriType attribute) {
+			addParameter(PARAM_ATTRIBUTE, attribute);
 			return this;
 		}
 		
-		public Dependency setConcept(CodeableConcept concept) {
-			addParameter(PARAM_CONCEPT, concept);
+		public Dependency setValue(String value) {
+			return setValue(new StringType(value));
+		}
+		
+		public Dependency setValue(DataType value) {
+			addParameter(PARAM_VALUE, value);
 			return this;
 		}
 	}

@@ -28,7 +28,7 @@ import org.hl7.fhir.model.core.PrimitiveType;
 import org.hl7.fhir.model.core.DataType;
 
 /**
- * @since 0.1
+ * @since 1.0
  */
 public abstract class BasePart {
 

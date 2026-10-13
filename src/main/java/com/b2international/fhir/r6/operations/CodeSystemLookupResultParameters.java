@@ -16,10 +16,10 @@
 package com.b2international.fhir.r6.operations;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.hl7.fhir.model.core.*;
-import org.hl7.fhir.model.core.Parameters.ParametersParameterComponent;
+
+import com.google.common.primitives.Ints;
 
 /**
  * @since 1.0
@@ -35,7 +35,7 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 	}
 	
 	public StringType getName() {
-		return (StringType) getParameterValue("name", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("name", Parameters.ParametersParameterComponent::getValueStringType);
 	}
 
 	public CodeSystemLookupResultParameters setName(String name) {
@@ -43,12 +43,12 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 	}
 	
 	public CodeSystemLookupResultParameters setName(StringType name) {
-		getParameters().addParameter("name", name);
+		addParameter("name", name);
 		return this;
 	}
 	
 	public StringType getDisplay() {
-		return (StringType) getParameterValue("display", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("display", Parameters.ParametersParameterComponent::getValueStringType);
 	}
 
 	public CodeSystemLookupResultParameters setDisplay(String display) {
@@ -56,12 +56,12 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 	}
 	
 	public CodeSystemLookupResultParameters setDisplay(StringType display) {
-		getParameters().addParameter("display", display);
+		addParameter("display", display);
 		return this;
 	}
 
 	public StringType getVersion() {
-		return (StringType) getParameterValue("version", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("version", Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
 	public CodeSystemLookupResultParameters setVersion(String version) {
@@ -69,86 +69,62 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 	}
 	
 	public CodeSystemLookupResultParameters setVersion(StringType version) {
-		getParameters().addParameter("version", version);
+		addParameter("version", version);
+		return this;
+	}
+	
+	public StringType getDefinition() {
+		return getParameterValue("definition", Parameters.ParametersParameterComponent::getValueStringType);
+	}
+	
+	public CodeSystemLookupResultParameters setDefinition(String definition) {
+		return setDefinition(new StringType(definition));
+	}
+	
+	public CodeSystemLookupResultParameters setDefinition(StringType definition) {
+		addParameter("definition", definition);
 		return this;
 	}
 	
 	public List<Designation> getDesignation() {
-		List<ParametersParameterComponent> designationParameters = getParameters("designation");
-		return designationParameters.stream()
-				.map(designationParameter -> {
-					
-					List<ParametersParameterComponent> part = designationParameter.getPartList();
-					return new Designation(part);
-				})
-				.collect(Collectors.toList());
+		return getParameters("designation").stream().map(param -> new Designation(param.getPartList())).toList();
 	}
-	
-	public List<Property> getProperty() {
-		List<ParametersParameterComponent> propertyParameters = getParameters("property");
-		return propertyParameters.stream()
-				.map(propertyParameter -> {
-					List<ParametersParameterComponent> part = propertyParameter.getPartList();
-					return new Property(part);
-				})
-				.collect(Collectors.toList());
-	}
-	
+
 	public CodeSystemLookupResultParameters setDesignation(List<Designation> designations) {
 		if (designations == null) {
 			return this;
 		}
 		
+		
 		designations.stream()
-			.map(designation -> {
-				ParametersParameterComponent param = new Parameters.ParametersParameterComponent().setName("designation").setPartList(designation.getPartSorted());
-				param.setExtensionList(designation.getExtension());
-				return param;
-			})
+			.map(Designation::asParameterComponent)
 			.forEach(getParameters()::addParameter);
 		
 		return this;
 	}
 
+	public List<Property> getProperty() {
+		return getParameters("property").stream().map(param -> new Property(param.getPartList())).toList();
+	}
+	
 	public CodeSystemLookupResultParameters setProperty(List<Property> properties) {
 		if (properties == null) {
 			return this;
 		}
 		
 		properties.stream()
-			.map(property -> {
-				var propertyParameter = new Parameters.ParametersParameterComponent().setName("property");
-				
-				// property.code
-				propertyParameter.addPart(
-					new Parameters.ParametersParameterComponent()
-						.setName("code")
-						.setValue(property.getCode())
-				);
-				
-				// property.value
-				propertyParameter.addPart(
-					new Parameters.ParametersParameterComponent()
-						.setName("value")
-						.setValue(property.getValue())
-				);
-				
-				// property.description
-				propertyParameter.addPart(new Parameters.ParametersParameterComponent()
-						.setName("description")
-						.setValue(property.getDescription()));
-				
-				return propertyParameter; 
-			})
+			.map(property -> new Parameters.ParametersParameterComponent().setName("property").setPartList(property.getPartSorted()))
 			.forEach(getParameters()::addParameter);
 	
 		return this;
 	}
 	
-	public static class Designation extends BasePart {
+	public static final class Designation extends BasePart {
+		
+		private static final List<String> PARAMETER_ORDER = List.of("language", "use", "additionalUse", "value");
 		
 		public Designation() {
-			super();
+			super(null);
 		}
 		
 		public Designation(List<Parameters.ParametersParameterComponent> part) {
@@ -156,15 +132,21 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 		}
 		
 		public CodeType getLanguage() {
-			return (CodeType) getParameter("language").map(Parameters.ParametersParameterComponent::getValue).orElse(null);
+			return getParameterValue("language", Parameters.ParametersParameterComponent::getValueCodeType);
 		}
 		
 		public Coding getUse() {
-			return (Coding) getParameter("use").map(Parameters.ParametersParameterComponent::getValue).orElse(null);
+			return getParameterValue("use", Parameters.ParametersParameterComponent::getValueCoding);
+		}
+		
+		public List<Coding> getAdditionalUse() {
+			return getParameters("additionalUse")
+					.map(Parameters.ParametersParameterComponent::getValueCoding)
+					.toList();
 		}
 		
 		public StringType getValue() {
-			return (StringType) getParameter("value").map(Parameters.ParametersParameterComponent::getValue).orElse(null);
+			return getParameterValue("value", Parameters.ParametersParameterComponent::getValueStringType);
 		}
 		
 		public Designation setLanguage(String language) {
@@ -181,6 +163,11 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 			return this;
 		}
 		
+		public Designation setAdditionalUse(Coding additionalUse) {
+			addParameter("additionalUse", additionalUse);
+			return this;
+		}
+		
 		public Designation setValue(String value) {
 			return setValue(new StringType(value));
 		}
@@ -190,12 +177,26 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 			return this;
 		}
 		
+		public Parameters.ParametersParameterComponent asParameterComponent() {
+			return (Parameters.ParametersParameterComponent) new Parameters.ParametersParameterComponent()
+					.setName("designation")
+					.setPartList(getPartSorted())
+					.setExtensionList(getExtension());
+		}
+		
+		@Override
+		protected int sortBy(Parameters.ParametersParameterComponent parameterA, Parameters.ParametersParameterComponent parameterB) {
+			return Ints.compare(PARAMETER_ORDER.indexOf(parameterA.getName()), PARAMETER_ORDER.indexOf(parameterB.getName()));
+		}
+		
 	}
 	
-	public static class Property extends BasePart {
+	public static final class Property extends BasePart {
+		
+		private static final List<String> PARAMETER_ORDER = List.of("code", "value", "description", "source", "subproperty");
 		
 		public Property() {
-			super();
+			super(null);
 		}
 		
 		public Property(List<Parameters.ParametersParameterComponent> part) {
@@ -203,17 +204,21 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 		}
 		
 		public CodeType getCode() {
-			return (CodeType) getParameter("code").map(Parameters.ParametersParameterComponent::getValue).orElse(null);
+			return getParameterValue("code", Parameters.ParametersParameterComponent::getValueCodeType);
 		}
 		
 		public DataType getValue() {
-			return getParameter("value").map(Parameters.ParametersParameterComponent::getValue).orElse(null);
+			return getParameterValue("value", Parameters.ParametersParameterComponent::getValue);
 		}
 		
 		public StringType getDescription() {
-			return (StringType) getParameter("description").map(Parameters.ParametersParameterComponent::getValue).orElse(null);
+			return getParameterValue("description", Parameters.ParametersParameterComponent::getValueStringType);
 		}
-
+		
+		public CanonicalType getSource() {
+			return getParameterValue("source", Parameters.ParametersParameterComponent::getValueCanonicalType);
+		}
+		
 		public List<Property> getSubProperty() {
 			return getParameters("subproperty")
 					.map(propertyParameter -> new Property(propertyParameter.getPartList()))
@@ -227,6 +232,10 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 		public Property setCode(CodeType code) {
 			addParameter("code", code);
 			return this;
+		}
+		
+		public Property setValue(String value) {
+			return setValue(new StringType(value));
 		}
 		
 		public Property setValue(DataType value) {
@@ -243,16 +252,32 @@ public final class CodeSystemLookupResultParameters extends BaseParameters {
 			return this;
 		}
 		
+		public Property setSource(String source) {
+			return setSource(new CanonicalType(source));
+		}
+		
+		public Property setSource(CanonicalType source) {
+			addParameter("source", source);
+			return this;
+		}
+		
 		public Property setSubProperty(List<Property> subproperties) {
 			if (subproperties == null) {
 				return this;
 			}
 			
 			subproperties.stream()
-				.map(subproperty -> new Parameters.ParametersParameterComponent().setName("subproperty").setPartList(subproperty.getPartList()))
-				.forEach(this::addParameter);
+				.map(subproperty -> new Parameters.ParametersParameterComponent().setName("subproperty").setPartList(subproperty.getPartSorted()))
+				.forEach(getPartList()::add);
 			
 			return this;
 		}
+		
+		@Override
+		protected int sortBy(Parameters.ParametersParameterComponent parameterA, Parameters.ParametersParameterComponent parameterB) {
+			return Ints.compare(PARAMETER_ORDER.indexOf(parameterA.getName()), PARAMETER_ORDER.indexOf(parameterB.getName()));
+		}
+		
 	}
+
 }

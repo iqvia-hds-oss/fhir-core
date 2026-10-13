@@ -24,9 +24,9 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSortedSet;
 
 /**
- * Parameters class for the $load-package operation in the FHIR R4 format.
+ * Parameters class for the $load-package operation in the FHIR R5 format.
  * 
- * @since 1.0
+ * @since 0.6.0
  */
 public final class LoadPackageParameters extends BaseParameters {
 
@@ -53,7 +53,7 @@ public final class LoadPackageParameters extends BaseParameters {
 	}
 
 	public StringType getName() {
-		return (StringType) getParameterValue(PARAM_NAME, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_NAME, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 
 	public LoadPackageParameters setName(String name) {
@@ -66,7 +66,7 @@ public final class LoadPackageParameters extends BaseParameters {
 	}
 
 	public StringType getVersion() {
-		return (StringType) getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_VERSION, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 
 	public LoadPackageParameters setVersion(String version) {
@@ -79,7 +79,7 @@ public final class LoadPackageParameters extends BaseParameters {
 	}
 
 	public StringType getRegistry() {
-		return (StringType) getParameterValue(PARAM_REGISTRY, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_REGISTRY, Parameters.ParametersParameterComponent::getValueStringType);
 	}
 
 	public LoadPackageParameters setRegistry(String registry) {
@@ -92,7 +92,7 @@ public final class LoadPackageParameters extends BaseParameters {
 	}
 
 	public BooleanType getResolveDependencies() {
-		return (BooleanType) getParameterValue(PARAM_RESOLVE_DEPENDENCIES, Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue(PARAM_RESOLVE_DEPENDENCIES, Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 
 	public LoadPackageParameters setResolveDependencies(Boolean resolveDependencies) {
@@ -105,7 +105,7 @@ public final class LoadPackageParameters extends BaseParameters {
 	}
 	
 	public List<UriType> getResourceUrl() {
-		return getParameters(PARAM_RESOURCE_URL).stream().map(Parameters.ParametersParameterComponent::getValue).map(UriType.class::cast).toList();
+		return getParameters(PARAM_RESOURCE_URL).stream().map(Parameters.ParametersParameterComponent::getValueUriType).toList();
 	}
 	
 	public LoadPackageParameters setResourceUrl(List<?> resourceUrl) {
@@ -120,10 +120,6 @@ public final class LoadPackageParameters extends BaseParameters {
 				}
 			}).forEach(url -> addParameter(PARAM_RESOURCE_URL, url));
 		}
-		return this;
-	}
-	public LoadPackageParameters setResourceUrl(BooleanType resolveDependencies) {
-		addParameter(PARAM_RESOLVE_DEPENDENCIES, resolveDependencies);
 		return this;
 	}
 

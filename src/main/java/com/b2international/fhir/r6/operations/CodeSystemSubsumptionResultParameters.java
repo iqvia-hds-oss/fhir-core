@@ -15,8 +15,8 @@
  */
 package com.b2international.fhir.r6.operations;
 
-import org.hl7.fhir.model.core.*;
 import org.hl7.fhir.r4.model.codesystems.ConceptSubsumptionOutcome;
+import org.hl7.fhir.model.core.*;
 
 /**
  * @since 1.0
@@ -32,7 +32,7 @@ public class CodeSystemSubsumptionResultParameters extends BaseParameters {
 	}
 	
 	public CodeType getOutcome() {
-		return (CodeType) getParameterValue("outcome", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("outcome", Parameters.ParametersParameterComponent::getValueCodeType);
 	}
 	
 	public CodeSystemSubsumptionResultParameters setOutcome(ConceptSubsumptionOutcome outcome) {

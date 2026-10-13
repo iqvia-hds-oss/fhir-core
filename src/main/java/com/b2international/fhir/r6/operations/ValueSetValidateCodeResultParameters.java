@@ -31,58 +31,48 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 	}
 	
 	public BooleanType getResult() {
-		return (BooleanType) getParameterValue("result", Parameters.ParametersParameterComponent::getValue);
-	}
-	
-	public UriType getSystem() {
-		return (UriType) getParameterValue("system", Parameters.ParametersParameterComponent::getValue);
-	}
-
-	public StringType getVersion() {
-		return (StringType) getParameterValue("version", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("result", Parameters.ParametersParameterComponent::getValueBooleanType);
 	}
 	
 	public StringType getMessage() {
-		return (StringType) getParameterValue("message", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("message", Parameters.ParametersParameterComponent::getValueStringType);
 	}
 	
 	public StringType getDisplay() {
-		return (StringType) getParameterValue("display", Parameters.ParametersParameterComponent::getValue);
+		return getParameterValue("display", Parameters.ParametersParameterComponent::getValueStringType);
+	}
+	
+	public CodeType getCode() {
+		return getParameterValue("code", Parameters.ParametersParameterComponent::getValueCodeType);
+	}
+	
+	public UriType getSystem() {
+		return getParameterValue("system", Parameters.ParametersParameterComponent::getValueUriType);
+	}
+	
+	public StringType getVersion() {
+		return getParameterValue("version", Parameters.ParametersParameterComponent::getValueStringType);
+	}
+	
+	public CodeableConcept getCodeableConcept() {
+		return getParameterValue("codeableConcept", Parameters.ParametersParameterComponent::getValueCodeableConcept);
 	}
 	
 	public OperationOutcome getIssues() {
 		return (OperationOutcome) getParameterValue("issues", Parameters.ParametersParameterComponent::getResource);
 	}
-	
-	public ValueSetValidateCodeResultParameters setResult(Boolean isResult) {
-		return isResult == null ? this : setResult(new BooleanType(isResult));
+
+	public ValueSetValidateCodeResultParameters setResult(Boolean result) {
+		return setResult(new BooleanType(result));
 	}
 	
-	public ValueSetValidateCodeResultParameters setResult(BooleanType isResult) {
-		addParameter("result", isResult);
+	public ValueSetValidateCodeResultParameters setResult(BooleanType result) {
+		addParameter("result", result);
 		return this;
 	}
 	
 	public ValueSetValidateCodeResultParameters setMessage(String message) {
 		return setMessage(new StringType(message));
-	}
-	
-	public ValueSetValidateCodeResultParameters setSystem(String system) {
-		return system == null ? this : setSystem(new UriType(system));
-	}
-
-	public ValueSetValidateCodeResultParameters setSystem(UriType system) {
-		addParameter("system", system);
-		return this;
-	}
-
-	public ValueSetValidateCodeResultParameters setVersion(String version) {
-		return version == null ? this : setVersion(new StringType(version));
-	}
-
-	public ValueSetValidateCodeResultParameters setVersion(StringType version) {
-		addParameter("version", version);
-		return this;
 	}
 	
 	public ValueSetValidateCodeResultParameters setMessage(StringType message) {
@@ -96,6 +86,38 @@ public class ValueSetValidateCodeResultParameters extends BaseParameters {
 	
 	public ValueSetValidateCodeResultParameters setDisplay(StringType display) {
 		addParameter("display", display);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setCode(String code) {
+		return setCode(new CodeType(code));
+	}
+	
+	public ValueSetValidateCodeResultParameters setCode(CodeType codeType) {
+		addParameter("code", codeType);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setSystem(String system) {
+		return setSystem(new UriType(system));
+	}
+
+	public ValueSetValidateCodeResultParameters setSystem(UriType uriType) {
+		addParameter("system", uriType);
+		return this;
+	}
+
+	public ValueSetValidateCodeResultParameters setVersion(String version) {
+		return setVersion(new StringType(version));
+	}
+	
+	public ValueSetValidateCodeResultParameters setVersion(StringType version) {
+		addParameter("version", version);
+		return this;
+	}
+	
+	public ValueSetValidateCodeResultParameters setCodeableConcept(CodeableConcept codeableConcept) {
+		addParameter("codeableConcept", codeableConcept);
 		return this;
 	}
 	
