@@ -17,17 +17,17 @@
 		<java.version>17</java.version>
 
 		<!-- Dependency Versions -->
-		<hl7.fhir.version>6.9.10</hl7.fhir.version>
-		<hapifhir.version>8.4.0</hapifhir.version>
+		<hl7.fhir.version>7.0.1</hl7.fhir.version>
+		<hapifhir.version>8.10.0</hapifhir.version>
 		<fhir.ucum.version>1.0.10</fhir.ucum.version>
 		<gson.version>2.13.1</gson.version>
 		<xpp3.version>1.1.4c</xpp3.version>
 		<jackson.version>2.22.1</jackson.version>
 
 		<slf4j.version>2.0.17</slf4j.version>
-		<guava.version>33.4.0-jre</guava.version>
+		<guava.version>33.5.0-jre</guava.version>
 		<jsr305.version>3.0.2</jsr305.version>
-		<commons.lang3.version>3.20.0</commons.lang3.version>
+		<commons.lang3.version>3.21.0</commons.lang3.version>
 		<commons.codec.version>1.22.1</commons.codec.version>
 		<commons.io.version>2.22.0</commons.io.version>
 		<commons.text.version>1.15.0</commons.text.version>
@@ -84,6 +84,25 @@
 		<dependency>
 			<groupId>ca.uhn.hapi.fhir</groupId>
 			<artifactId>org.hl7.fhir.r5</artifactId>
+			<version>${hl7.fhir.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.nimbusds</groupId>
+					<artifactId>nimbus-jose-jwt</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sourceforge.plantuml</groupId>
+					<artifactId>plantuml-mit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jgit</groupId>
+					<artifactId>org.eclipse.jgit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>org.hl7.fhir.model</artifactId>
 			<version>${hl7.fhir.version}</version>
 			<exclusions>
 				<exclusion>
