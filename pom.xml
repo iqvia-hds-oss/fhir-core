@@ -17,7 +17,7 @@
 		<java.version>17</java.version>
 
 		<!-- Dependency Versions -->
-		<hl7.fhir.version>7.0.1</hl7.fhir.version>
+		<hl7.fhir.version>7.0.2</hl7.fhir.version>
 		<hapifhir.version>8.10.0</hapifhir.version>
 		<fhir.ucum.version>1.0.10</fhir.ucum.version>
 		<gson.version>2.13.1</gson.version>
@@ -257,9 +257,12 @@
 							com.fasterxml.jackson.databind.module;version="[${jackson.version},3)";resolution:=optional,
 							!com.fasterxml.jackson.*,
 							!com.github.rjeschke.*,
+							!com.github.javaparser.*,
 							!com.helger.*,
 							!com.nimbusds.*,
+							!com.sun.org.apache.xml.*,
 							!ca.uhn.fhir.*,
+							!de.rototor.pdfbox.*,
 							!java.*,
 							!javax.xml.*,
 							!javax.imageio.*,
@@ -268,11 +271,17 @@
 							!net.sourceforge.plantuml.*,
 							!okhttp3.*,
 							!okio.*,
+							!org.anltr.stringtemplate.*,
+							!org.apache.batik.*,
 							!org.apache.compress.*,
 							!org.apache.commons.net.*,
 							!org.apache.http.*,
 							!org.apache.jena.*,
+							!org.apache.jcp.*,
+							!org.apache.maven.*,
+							!org.apache.pdfbox.*,
 							!org.apache.poi.*,
+							!org.apache.xml.security.*,
 							!org.checkerframework.*,
 							!org.codehaus.stax2.*,
 							!org.commonmark.*,
@@ -298,8 +307,10 @@
 							org.hl7.fhir.r4.*,
 							org.hl7.fhir.r4b.*,
 							org.hl7.fhir.r5.*,
+							org.hl7.fhir.model.*,
 							org.hl7.fhir.convertors.conv40_50.*,
 							org.hl7.fhir.convertors.conv43_50.*,
+							org.hl7.fhir.convertors.conv50_N.*,
 							org.hl7.fhir.convertors.factory
 						</_exportcontents>
 						<_noclassforname>true</_noclassforname>
