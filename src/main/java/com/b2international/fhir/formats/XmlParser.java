@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 B2i Healthcare, https://b2ihealthcare.com
+ * Copyright 2024-2026 B2i Healthcare, https://b2ihealthcare.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.hl7.fhir.exceptions.FHIRFormatError;
+import org.hl7.fhir.model.ModelContext;
 import org.xmlpull.mxp1.MXParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -49,6 +50,10 @@ public class XmlParser {
 		return new org.hl7.fhir.r5.formats.XmlParser().parse(in);
 	}
 	
+	public static final org.hl7.fhir.model.core.Resource parseR6(InputStream in) throws FHIRFormatError, IOException {
+		return new org.hl7.fhir.model.core.formats.XmlParser(ModelContext.minimalContext()).parse(in);
+	}
+	
 	public static final void composeR4(OutputStream out, org.hl7.fhir.r4.model.Resource resource, boolean pretty) throws FHIRFormatError, IOException {
 		new org.hl7.fhir.r4.formats.XmlParser()
 			.setOutputStyle(pretty ? org.hl7.fhir.r4.formats.IParser.OutputStyle.PRETTY : org.hl7.fhir.r4.formats.IParser.OutputStyle.NORMAL)
@@ -64,6 +69,12 @@ public class XmlParser {
 	public static final void composeR5(OutputStream out, org.hl7.fhir.r5.model.Resource resource, boolean pretty) throws FHIRFormatError, IOException {
 		new org.hl7.fhir.r5.formats.XmlParser()
 			.setOutputStyle(pretty ? org.hl7.fhir.r5.formats.IParser.OutputStyle.PRETTY : org.hl7.fhir.r5.formats.IParser.OutputStyle.NORMAL)
+			.compose(out, resource);
+	}
+	
+	public static final void composeR6(OutputStream out, org.hl7.fhir.model.core.Resource resource, boolean pretty) throws FHIRFormatError, IOException {
+		new org.hl7.fhir.model.core.formats.XmlParser(ModelContext.minimalContext())
+			.setOutputStyle(pretty ? org.hl7.fhir.model.utilities.formats.OutputStyle.PRETTY : org.hl7.fhir.model.utilities.formats.OutputStyle.NORMAL)
 			.compose(out, resource);
 	}
 	
