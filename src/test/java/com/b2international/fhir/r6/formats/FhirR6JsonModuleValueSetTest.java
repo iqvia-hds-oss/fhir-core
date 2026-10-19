@@ -17,9 +17,9 @@ package com.b2international.fhir.r6.formats;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.hl7.fhir.r5.model.Enumerations;
-import org.hl7.fhir.r5.model.Resource;
-import org.hl7.fhir.r5.model.ValueSet;
+import org.hl7.fhir.model.core.Enumerations;
+import org.hl7.fhir.model.core.Resource;
+import org.hl7.fhir.model.core.ValueSet;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -42,11 +42,11 @@ public class FhirR6JsonModuleValueSetTest {
 
 	private static ValueSet buildValueSet() {
 		final ValueSet vs = new ValueSet();
-		vs.setId("r5-vs");
-		vs.setUrl("http://example.com/r5/vs");
+		vs.setId("r6-vs");
+		vs.setUrl("http://example.com/r6/vs");
 		vs.setVersion("1.0.0");
-		vs.setName("R5ExampleVS");
-		vs.setTitle("R5 Example Value Set");
+		vs.setName("R6ExampleVS");
+		vs.setTitle("R6 Example Value Set");
 		vs.setStatus(Enumerations.PublicationStatus.ACTIVE);
 		vs.getCompose()
 			.addInclude()
@@ -58,15 +58,15 @@ public class FhirR6JsonModuleValueSetTest {
 	}
 
 	private static void assertValueSet(final ValueSet vs) {
-		assertThat(vs.getId()).isEqualTo("r5-vs");
-		assertThat(vs.getUrl()).isEqualTo("http://example.com/r5/vs");
+		assertThat(vs.getId()).isEqualTo("r6-vs");
+		assertThat(vs.getUrl()).isEqualTo("http://example.com/r6/vs");
 		assertThat(vs.getVersion()).isEqualTo("1.0.0");
-		assertThat(vs.getName()).isEqualTo("R5ExampleVS");
-		assertThat(vs.getTitle()).isEqualTo("R5 Example Value Set");
+		assertThat(vs.getName()).isEqualTo("R6ExampleVS");
+		assertThat(vs.getTitle()).isEqualTo("R6 Example Value Set");
 		assertThat(vs.getStatus()).isEqualTo(Enumerations.PublicationStatus.ACTIVE);
-		assertThat(vs.getCompose().getInclude()).hasSize(1);
+		assertThat(vs.getCompose().getIncludeList()).hasSize(1);
 		assertThat(vs.getCompose().getIncludeFirstRep().getSystem()).isEqualTo("http://example.com/cs");
-		assertThat(vs.getCompose().getIncludeFirstRep().getConcept()).hasSize(1);
+		assertThat(vs.getCompose().getIncludeFirstRep().getConceptList()).hasSize(1);
 		assertThat(vs.getCompose().getIncludeFirstRep().getConceptFirstRep().getCode()).isEqualTo("example-code");
 		assertThat(vs.getCompose().getIncludeFirstRep().getConceptFirstRep().getDisplay()).isEqualTo("Example Concept");
 	}
@@ -76,9 +76,9 @@ public class FhirR6JsonModuleValueSetTest {
 		final String json = objectMapper.writeValueAsString(buildValueSet());
 
 		assertThat(json).contains("\"resourceType\":\"ValueSet\"");
-		assertThat(json).contains("\"url\":\"http://example.com/r5/vs\"");
+		assertThat(json).contains("\"url\":\"http://example.com/r6/vs\"");
 		assertThat(json).contains("\"version\":\"1.0.0\"");
-		assertThat(json).contains("\"name\":\"R5ExampleVS\"");
+		assertThat(json).contains("\"name\":\"R6ExampleVS\"");
 		assertThat(json).contains("\"status\":\"active\"");
 		assertThat(json).contains("\"system\":\"http://example.com/cs\"");
 		assertThat(json).contains("\"code\":\"example-code\"");
@@ -107,11 +107,11 @@ public class FhirR6JsonModuleValueSetTest {
 		final String json = """
 		{
 		  "resourceType": "ValueSet",
-		  "id": "r5-vs",
-		  "url": "http://example.com/r5/vs",
+		  "id": "r6-vs",
+		  "url": "http://example.com/r6/vs",
 		  "version": "1.0.0",
-		  "name": "R5ExampleVS",
-		  "title": "R5 Example Value Set",
+		  "name": "R6ExampleVS",
+		  "title": "R6 Example Value Set",
 		  "status": "active",
 		  "compose": {
 		    "include": [

@@ -42,11 +42,11 @@ public class FhirR6JsonModuleCodeSystemTest {
 
 	private static CodeSystem buildCodeSystem() {
 		final CodeSystem cs = new CodeSystem();
-		cs.setId("r5-cs");
-		cs.setUrl("http://example.com/r5/cs");
+		cs.setId("r6-cs");
+		cs.setUrl("http://example.com/r6/cs");
 		cs.setVersion("1.0.0");
-		cs.setName("R5ExampleCS");
-		cs.setTitle("R5 Example Code System");
+		cs.setName("R6ExampleCS");
+		cs.setTitle("R6 Example Code System");
 		cs.setStatus(Enumerations.PublicationStatus.ACTIVE);
 		cs.setContent(Enumerations.CodeSystemContentMode.COMPLETE);
 		cs.addConcept()
@@ -57,11 +57,11 @@ public class FhirR6JsonModuleCodeSystemTest {
 	}
 
 	private static void assertCodeSystem(final CodeSystem cs) {
-		assertThat(cs.getId()).isEqualTo("r5-cs");
-		assertThat(cs.getUrl()).isEqualTo("http://example.com/r5/cs");
+		assertThat(cs.getId()).isEqualTo("r6-cs");
+		assertThat(cs.getUrl()).isEqualTo("http://example.com/r6/cs");
 		assertThat(cs.getVersion()).isEqualTo("1.0.0");
-		assertThat(cs.getName()).isEqualTo("R5ExampleCS");
-		assertThat(cs.getTitle()).isEqualTo("R5 Example Code System");
+		assertThat(cs.getName()).isEqualTo("R6ExampleCS");
+		assertThat(cs.getTitle()).isEqualTo("R6 Example Code System");
 		assertThat(cs.getStatus()).isEqualTo(Enumerations.PublicationStatus.ACTIVE);
 		assertThat(cs.getContent()).isEqualTo(Enumerations.CodeSystemContentMode.COMPLETE);
 		assertThat(cs.getConceptList()).hasSize(1);
@@ -75,9 +75,9 @@ public class FhirR6JsonModuleCodeSystemTest {
 		final String json = objectMapper.writeValueAsString(buildCodeSystem());
 
 		assertThat(json).contains("\"resourceType\":\"CodeSystem\"");
-		assertThat(json).contains("\"url\":\"http://example.com/r5/cs\"");
+		assertThat(json).contains("\"url\":\"http://example.com/r6/cs\"");
 		assertThat(json).contains("\"version\":\"1.0.0\"");
-		assertThat(json).contains("\"name\":\"R5ExampleCS\"");
+		assertThat(json).contains("\"name\":\"R6ExampleCS\"");
 		assertThat(json).contains("\"status\":\"active\"");
 		assertThat(json).contains("\"content\":\"complete\"");
 		assertThat(json).contains("\"code\":\"example-code\"");
@@ -106,11 +106,11 @@ public class FhirR6JsonModuleCodeSystemTest {
 		final String json = """
 		{
 		  "resourceType": "CodeSystem",
-		  "id": "r5-cs",
-		  "url": "http://example.com/r5/cs",
+		  "id": "r6-cs",
+		  "url": "http://example.com/r6/cs",
 		  "version": "1.0.0",
-		  "name": "R5ExampleCS",
-		  "title": "R5 Example Code System",
+		  "name": "R6ExampleCS",
+		  "title": "R6 Example Code System",
 		  "status": "active",
 		  "content": "complete",
 		  "concept": [

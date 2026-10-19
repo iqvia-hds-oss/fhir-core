@@ -42,11 +42,11 @@ public class FhirR6JsonModuleConceptMapTest {
 
 	private static ConceptMap buildConceptMap() {
 		final ConceptMap cm = new ConceptMap();
-		cm.setId("r5-cm");
-		cm.setUrl("http://example.com/r5/cm");
+		cm.setId("r6-cm");
+		cm.setUrl("http://example.com/r6/cm");
 		cm.setVersion("1.0.0");
-		cm.setName("R5ExampleCM");
-		cm.setTitle("R5 Example Concept Map");
+		cm.setName("R6ExampleCM");
+		cm.setTitle("R6 Example Concept Map");
 		cm.setStatus(Enumerations.PublicationStatus.ACTIVE);
 		cm.addGroup()
 			.setSource("http://example.com/source")
@@ -60,11 +60,11 @@ public class FhirR6JsonModuleConceptMapTest {
 	}
 
 	private static void assertConceptMap(final ConceptMap cm) {
-		assertThat(cm.getId()).isEqualTo("r5-cm");
-		assertThat(cm.getUrl()).isEqualTo("http://example.com/r5/cm");
+		assertThat(cm.getId()).isEqualTo("r6-cm");
+		assertThat(cm.getUrl()).isEqualTo("http://example.com/r6/cm");
 		assertThat(cm.getVersion()).isEqualTo("1.0.0");
-		assertThat(cm.getName()).isEqualTo("R5ExampleCM");
-		assertThat(cm.getTitle()).isEqualTo("R5 Example Concept Map");
+		assertThat(cm.getName()).isEqualTo("R6ExampleCM");
+		assertThat(cm.getTitle()).isEqualTo("R6 Example Concept Map");
 		assertThat(cm.getStatus()).isEqualTo(Enumerations.PublicationStatus.ACTIVE);
 		assertThat(cm.getGroupList()).hasSize(1);
 		assertThat(cm.getGroupFirstRep().getSource()).isEqualTo("http://example.com/source");
@@ -81,9 +81,9 @@ public class FhirR6JsonModuleConceptMapTest {
 		final String json = objectMapper.writeValueAsString(buildConceptMap());
 
 		assertThat(json).contains("\"resourceType\":\"ConceptMap\"");
-		assertThat(json).contains("\"url\":\"http://example.com/r5/cm\"");
+		assertThat(json).contains("\"url\":\"http://example.com/r6/cm\"");
 		assertThat(json).contains("\"version\":\"1.0.0\"");
-		assertThat(json).contains("\"name\":\"R5ExampleCM\"");
+		assertThat(json).contains("\"name\":\"R6ExampleCM\"");
 		assertThat(json).contains("\"status\":\"active\"");
 		assertThat(json).contains("\"source\":\"http://example.com/source\"");
 		assertThat(json).contains("\"target\":\"http://example.com/target\"");
@@ -114,11 +114,11 @@ public class FhirR6JsonModuleConceptMapTest {
 		final String json = """
 		{
 		  "resourceType": "ConceptMap",
-		  "id": "r5-cm",
-		  "url": "http://example.com/r5/cm",
+		  "id": "r6-cm",
+		  "url": "http://example.com/r6/cm",
 		  "version": "1.0.0",
-		  "name": "R5ExampleCM",
-		  "title": "R5 Example Concept Map",
+		  "name": "R6ExampleCM",
+		  "title": "R6 Example Concept Map",
 		  "status": "active",
 		  "group": [
 		    {
