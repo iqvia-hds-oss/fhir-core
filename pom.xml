@@ -271,7 +271,7 @@
 							!net.sourceforge.plantuml.*,
 							!okhttp3.*,
 							!okio.*,
-							!org.anltr.stringtemplate.*,
+							!org.antlr.stringtemplate.*,
 							!org.apache.batik.*,
 							!org.apache.compress.*,
 							!org.apache.commons.net.*,
