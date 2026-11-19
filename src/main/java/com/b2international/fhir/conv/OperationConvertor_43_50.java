@@ -222,7 +222,7 @@ public class OperationConvertor_43_50 {
 	private static com.b2international.fhir.r4b.operations.ConceptMapTranslateResultParameters.Match convert(com.b2international.fhir.r5.operations.ConceptMapTranslateResultParameters.Match r5Match) {
 		var r5Relationship = org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.fromCode(r5Match.getRelationship().getCode());
 		return new com.b2international.fhir.r4b.operations.ConceptMapTranslateResultParameters.Match()
-			.setEquivalence(ConceptMapRelationshipConverter.convert(r5Relationship))
+			.setEquivalence(ConceptMapRelationshipConverter.convert_40_50(r5Relationship))
 			.setConcept(convertType(r5Match.getConcept()))
 			.setProduct(r5Match.getProduct() == null ? null : r5Match.getProduct().stream().map(OperationConvertor_43_50::convert).toList())
 			.setSource(convertType(r5Match.getOriginMap()))
@@ -498,7 +498,7 @@ public class OperationConvertor_43_50 {
 		var r4Equivalence = org.hl7.fhir.r4.model.codesystems.ConceptMapEquivalence.fromCode(r4bMatch.getEquivalence().getCode());
 
 		return new com.b2international.fhir.r5.operations.ConceptMapTranslateResultParameters.Match()
-			.setRelationship(ConceptMapRelationshipConverter.convert(r4Equivalence))
+			.setRelationship(ConceptMapRelationshipConverter.convert_40_50(r4Equivalence))
 			.setConcept(convertType(r4bMatch.getConcept()))
 			.setProduct(r4bMatch.getProduct() == null ? null : r4bMatch.getProduct().stream().map(OperationConvertor_43_50::convert).toList())
 			.setOriginMap(convertType(r4bMatch.getSource()))

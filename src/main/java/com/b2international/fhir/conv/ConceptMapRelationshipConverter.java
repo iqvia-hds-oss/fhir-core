@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 B2i Healthcare, https://b2ihealthcare.com
+ * Copyright 2024-2026 B2i Healthcare, https://b2ihealthcare.com
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import org.hl7.fhir.exceptions.FHIRFormatError;
  */
 public class ConceptMapRelationshipConverter {
 
-	public static org.hl7.fhir.r4.model.codesystems.ConceptMapEquivalence convert(org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship r5Relationship) {
+	public static org.hl7.fhir.r4.model.codesystems.ConceptMapEquivalence convert_40_50(org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship r5Relationship) {
 		switch (r5Relationship) {
 		case EQUIVALENT:
 			return org.hl7.fhir.r4.model.codesystems.ConceptMapEquivalence.EQUIVALENT;
@@ -41,7 +41,7 @@ public class ConceptMapRelationshipConverter {
 		}
 	}
 
-	public static org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship convert(org.hl7.fhir.r4.model.codesystems.ConceptMapEquivalence r4Equivalence) {
+	public static org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship convert_40_50(org.hl7.fhir.r4.model.codesystems.ConceptMapEquivalence r4Equivalence) {
 		switch (r4Equivalence) {
 		case EQUIVALENT:
 		case EQUAL:
@@ -61,6 +61,44 @@ public class ConceptMapRelationshipConverter {
 			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.NOTRELATEDTO;
 		default:
 			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.NULL;
+		}
+	}
+	
+	public static org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship convert_50_N(org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship r6Relationship) {
+		switch (r6Relationship) {
+		case EQUIVALENT:
+			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.EQUIVALENT;
+		case SOURCEISNARROWERTHANTARGET:
+			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.SOURCEISNARROWERTHANTARGET;
+		case SOURCEISBROADERTHANTARGET:
+			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.SOURCEISBROADERTHANTARGET;
+		case RELATEDTO:
+			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.RELATEDTO;
+		case NOTRELATEDTO:
+			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.NOTRELATEDTO;
+		case NULL:
+			return org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship.NULL;
+		default:
+			throw new FHIRFormatError("Unsupported R5 ConceptMapRelationship value: " + r6Relationship);
+		}
+	}
+	
+	public static org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship convert_50_N(org.hl7.fhir.r5.model.Enumerations.ConceptMapRelationship r5Relationship) {
+		switch (r5Relationship) {
+		case EQUIVALENT:
+			return org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship.EQUIVALENT;
+		case SOURCEISNARROWERTHANTARGET:
+			return org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship.SOURCEISNARROWERTHANTARGET;
+		case SOURCEISBROADERTHANTARGET:
+			return org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship.SOURCEISBROADERTHANTARGET;
+		case RELATEDTO:
+			return org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship.RELATEDTO;
+		case NULL:
+			return org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship.NULL;
+		case NOTRELATEDTO:
+			return org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship.NOTRELATEDTO;
+		default:
+			return org.hl7.fhir.model.core.Enumerations.ConceptMapRelationship.NULL;
 		}
 	}
 	
